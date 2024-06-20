@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour // 플레이어 움직임, 스탯, 아이템 사용, 장착, 인벤토리
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float runSpeed;
+    private float currentSpeed;
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        currentSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -37,7 +40,6 @@ public class PlayerController : MonoBehaviour
     {
         Move();
     }
-
 
     private void LateUpdate()
     {
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     void Move()
     {
-        Vector3 direction = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        Vector3 direction = transform.forward * curMovementInput.y * currentSpeed + transform.right * curMovementInput.x * currentSpeed;
 
         direction = direction * moveSpeed;
         direction.y = rigidbody.velocity.y;
@@ -69,11 +71,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed)
         {
             curMovementInput = context.ReadValue<Vector2>();
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if (context.phase == InputActionPhase.Canceled)
         {
             curMovementInput = Vector2.zero;
         }
@@ -94,6 +96,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnRun(InputAction.CallbackContext context) // 일정 스태미나가 떨어지면 달리지 못하게
+    {
+        if(context.phase == InputActionPhase.Performed)
+        {
+            currentSpeed = runSpeed;
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            currentSpeed = moveSpeed;
+        }
+    }
 
     bool IsGrounded()
     {
