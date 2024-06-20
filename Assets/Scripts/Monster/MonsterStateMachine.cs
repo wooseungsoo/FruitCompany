@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterStateMachine : MonoBehaviour
+public class MonsterStateMachine : StateMachine
 {
     public Monster monster{get;}
     public GameObject target{get; private set;}
@@ -12,17 +12,21 @@ public class MonsterStateMachine : MonoBehaviour
 
     public Vector2 movementInput{get;set;}
     public float movementSpeed{get;private set;}
-    //public float rotatin?{get;set;}
-    //public float modifier?{get;set;}
+    public float rotationDamping{get;set;}
+    public float movementSpeedModifier{get;set;}
 
 
     public MonsterStateMachine(Monster _monster)
     {
         this.monster =_monster;
-        //타겟 
-        // idleState = new MonsterIdleState(this);
-        // chasingState = new MonsterChasingState(this);
-        // attackState = new MonsterAttackState(this);
+
+        target= GameObject.FindGameObjectWithTag("Player");
+
+        idleState = new MonsterIdleState(this);
+        chasingState = new MonsterChasingState(this);
+        //attackState = new MonsterAttackState(this);
+
+        movementSpeed= monster.data.idleSpeed;
     }
     
 }
