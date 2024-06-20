@@ -14,7 +14,7 @@ public class MonsterIdleState : MonsterBaseState
 
     public override void Enter()
     {
-        Debug.Log("Idle 상태 진입");
+        stateMachine.navMeshAgent.speed= data.idleSpeed;
         //아래에 애니메이션
     }
 

@@ -30,6 +30,9 @@ public class MonsterStateMachine : StateMachine
         navMeshAgent=monster.navMeshAgent;
 
         movementSpeed= monster.data.idleSpeed;
+
+        //navMeshAgent.updateRotation = false;
+
     }
     
 }

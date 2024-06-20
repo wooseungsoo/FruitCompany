@@ -17,4 +17,4 @@ MonoBehaviour:
   chasingSpeed: 50
   attackDamage: 100
   <PlayerChasingRange>k__BackingField: 500
-  <AttackRange>k__BackingField: 1.5
+  <AttackRange>k__BackingField: 10

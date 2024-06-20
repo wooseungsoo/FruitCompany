@@ -20,7 +20,7 @@ public class Monster : MonoBehaviour
 
     private void Start() 
     {
-        navMeshAgent.speed= data.idleSpeed;
+        
         stateMachine.ChangeState(stateMachine.idleState);
     }
     private void Update() 
