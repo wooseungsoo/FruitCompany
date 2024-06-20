@@ -13,12 +13,8 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   monsterName: test
-  idleSpeed: 5
-  chasingSpeed: 10
-  attackDamage: 10
-  <PlayerChasingRange>k__BackingField: 10
+  idleSpeed: 10
+  chasingSpeed: 50
+  attackDamage: 100
+  <PlayerChasingRange>k__BackingField: 500
   <AttackRange>k__BackingField: 1.5
-  <ForceTransitionTime>k__BackingField: 0.24
-  <Force>k__BackingField: 0
-  <Dealing_Start_TransitionTime>k__BackingField: 0.107
-  <Dealing_End_TransitionTime>k__BackingField: 0.116

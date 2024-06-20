@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+
 
 public class MonsterStateMachine : StateMachine
 {
@@ -9,11 +11,11 @@ public class MonsterStateMachine : StateMachine
     public MonsterIdleState idleState{get; private set;}
     public MonsterChasingState chasingState{get; private set;}
     public MonsterAttackState attackState{get; private set;}
+    public NavMeshAgent navMeshAgent;
 
-    public Vector2 movementInput{get;set;}
     public float movementSpeed{get;private set;}
-    public float rotationDamping{get;set;}
-    public float movementSpeedModifier{get;set;}
+
+    
 
 
     public MonsterStateMachine(Monster _monster)
@@ -24,7 +26,8 @@ public class MonsterStateMachine : StateMachine
 
         idleState = new MonsterIdleState(this);
         chasingState = new MonsterChasingState(this);
-        //attackState = new MonsterAttackState(this);
+        attackState = new MonsterAttackState(this);
+        navMeshAgent=monster.navMeshAgent;
 
         movementSpeed= monster.data.idleSpeed;
     }
