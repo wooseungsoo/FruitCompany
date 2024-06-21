@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class MonsterChasingState : MonsterBaseState
 {
-    float delayCount;
+    public float updateInterval = 3f;
+    private float timeSinceLastUpdate;
     public MonsterChasingState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
+        
     }
 
     public override void Enter()
@@ -27,18 +29,26 @@ public class MonsterChasingState : MonsterBaseState
     {
         stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
 
-        //추적에서 멀어진지 몇초가 지나면 일반적인 상태로 전환
         if(!IsInChaseRange())
         {
-            stateMachine.ChangeState(stateMachine.idleState);
+            timeSinceLastUpdate += Time.deltaTime;
+            if(timeSinceLastUpdate >= updateInterval)
+            {
+                timeSinceLastUpdate = 0;
+                stateMachine.ChangeState(stateMachine.idleState);
+            }
             return;
         }
         else if(IsInAttackRange())
         {
             Debug.Log("공격 가능 범위");
-            stateMachine.navMeshAgent.velocity=Vector3.zero;
+            stateMachine.ChangeState(stateMachine.chasingState);
+            stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
         }
-        //else if 공격 범위내 이면 공격 state로 전환
+        else
+        {
+            timeSinceLastUpdate = 0;
+        }
     }
 
     protected bool IsInAttackRange()
@@ -47,9 +57,5 @@ public class MonsterChasingState : MonsterBaseState
         return playerDistanceSqr <= stateMachine.monster.data.AttackRange;
     }
 
-    IEnumerator ChasingCount()
-    {
-
-        return null;
-    }
+    
 }

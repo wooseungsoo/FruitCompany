@@ -30,8 +30,9 @@ public class MonsterIdleState : MonsterBaseState
         timeSinceLastUpdate += Time.deltaTime;
 
         base.Update();
+
         
-        if (timeSinceLastUpdate >= updateInterval) //랜덤 배회
+        if (timeSinceLastUpdate >= updateInterval) //n초 마다 랜덤 배회
         {   
             stateMachine.navMeshAgent.SetDestination(GetRandomPosition());
             timeSinceLastUpdate = 0f;
@@ -51,7 +52,8 @@ public class MonsterIdleState : MonsterBaseState
         randomDirection+= stateMachine.monster.gameObject.transform.position;
 
         NavMeshHit hit;
-        //지정된 범위 내에서 NavMesh를 기반으로 가장 가까운 지점을 찾습니다.
+
+
         if(NavMesh.SamplePosition(randomDirection,out hit,20f,NavMesh.AllAreas))
         {
             return  hit.position;

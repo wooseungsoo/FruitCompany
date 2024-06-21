@@ -1,4 +1,5 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -9,6 +10,9 @@ public class Monster : MonoBehaviour
     private MonsterStateMachine stateMachine;
     public CharacterController controller{get;private set;}
     public NavMeshAgent navMeshAgent{get;private set;}
+    public Action onAttack;
+    public Action onChasing;
+    public Action onIdle;
 
     private void Awake() 
     {
