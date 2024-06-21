@@ -16,5 +16,5 @@ MonoBehaviour:
   idleSpeed: 10
   chasingSpeed: 50
   attackDamage: 100
-  <PlayerChasingRange>k__BackingField: 500
+  <PlayerChasingRange>k__BackingField: 20
   <AttackRange>k__BackingField: 10

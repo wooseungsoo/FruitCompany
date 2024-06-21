@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 
 public class MonsterBaseState : IState
 {
+ 
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
     
@@ -57,7 +59,16 @@ public class MonsterBaseState : IState
 
     protected bool IsInChaseRange()
     {
-        float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= stateMachine.monster.data.PlayerChasingRange;
+        RaycastHit hit;
+        
+        Debug.DrawRay(stateMachine.monster.transform.position,stateMachine.monster.transform.forward*stateMachine.monster.data.PlayerChasingRange, Color.green);
+
+        if(Physics.Raycast(stateMachine.monster.transform.position,stateMachine.monster.transform.forward,out hit,stateMachine.monster.data.PlayerChasingRange))
+        {
+            Debug.Log(hit.transform.gameObject.name);
+            return true;
+        }
+        
+        return false;
     }
 }
