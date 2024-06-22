@@ -39,7 +39,7 @@ public class MonsterIdleState : MonsterBaseState
         }
     
 
-        if(IsInChaseRange())
+        if(IsInRange(chasingRange))
         {
             stateMachine.ChangeState(stateMachine.chasingState);
             return;

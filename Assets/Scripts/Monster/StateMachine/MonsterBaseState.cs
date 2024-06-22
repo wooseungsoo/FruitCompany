@@ -10,11 +10,15 @@ public class MonsterBaseState : IState
  
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
+    protected readonly float chasingRange;
+    protected readonly float attackRange;
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
     {
         stateMachine=monsterStateMachine;
         data= stateMachine.monster.data;
+        chasingRange= stateMachine.monster.data.PlayerChasingRange;
+        attackRange= stateMachine.monster.data.AttackRange;
     }
 
     public virtual void Enter()
@@ -57,13 +61,13 @@ public class MonsterBaseState : IState
     //     return movementSpeed;
     // }
 
-    protected bool IsInChaseRange()
+    protected bool IsInRange(float range)
     {
         RaycastHit hit;
         
-        Debug.DrawRay(stateMachine.monster.transform.position,stateMachine.monster.transform.forward*stateMachine.monster.data.PlayerChasingRange, Color.green);
+        //Debug.DrawRay(stateMachine.monster.transform.position,stateMachine.monster.transform.forward*range, Color.green);
 
-        if(Physics.Raycast(stateMachine.monster.transform.position,stateMachine.monster.transform.forward,out hit,stateMachine.monster.data.PlayerChasingRange))
+        if(Physics.Raycast(stateMachine.monster.transform.position,stateMachine.monster.transform.forward,out hit,range))
         {
             Debug.Log(hit.transform.gameObject.name);
             return true;

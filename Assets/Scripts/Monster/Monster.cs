@@ -8,7 +8,6 @@ public class Monster : MonoBehaviour
 {
     public MonsterSO data;
     private MonsterStateMachine stateMachine;
-    public CharacterController controller{get;private set;}
     public NavMeshAgent navMeshAgent{get;private set;}
     public Action onAttack;
     public Action onChasing;
@@ -16,19 +15,22 @@ public class Monster : MonoBehaviour
 
     private void Awake() 
     {
-        controller= GetComponent<CharacterController>();
         navMeshAgent=GetComponent<NavMeshAgent>();
-
         stateMachine= new MonsterStateMachine(this);
     }
 
     private void Start() 
     {
-        
+        SetAction();
         stateMachine.ChangeState(stateMachine.idleState);
     }
     private void Update() 
     {
         stateMachine.Update();
+    }
+
+    protected void SetAction()
+    {
+
     }
 }

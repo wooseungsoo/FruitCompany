@@ -8,7 +8,6 @@ public class MonsterChasingState : MonsterBaseState
     private float timeSinceLastUpdate;
     public MonsterChasingState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
-        
     }
 
     public override void Enter()
@@ -29,7 +28,7 @@ public class MonsterChasingState : MonsterBaseState
     {
         stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
 
-        if(!IsInChaseRange())
+        if(!IsInRange(chasingRange))
         {
             timeSinceLastUpdate += Time.deltaTime;
             if(timeSinceLastUpdate >= updateInterval)
@@ -39,11 +38,11 @@ public class MonsterChasingState : MonsterBaseState
             }
             return;
         }
-        else if(IsInAttackRange())
+        else if(IsInRange(attackRange))
         {
             Debug.Log("공격 가능 범위");
-            stateMachine.ChangeState(stateMachine.chasingState);
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
+            stateMachine.ChangeState(stateMachine.attackState);
         }
         else
         {
@@ -51,11 +50,6 @@ public class MonsterChasingState : MonsterBaseState
         }
     }
 
-    protected bool IsInAttackRange()
-    {
-        float playerDistanceSqr=(stateMachine.target.transform.position-stateMachine.monster.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= stateMachine.monster.data.AttackRange;
-    }
-
+   
     
 }
