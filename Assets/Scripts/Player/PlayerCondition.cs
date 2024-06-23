@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
-public class PlayerCondition : MonoBehaviour //shift ´­·¶À»¶§ ½ºÅÂ¹Ì³ª °¨¼Ò, °¡¸¸È÷ ÀÖÀ»¶§ ½ºÅÂ¹Ì³ª È¸º¹
+
+public interface IDamageable
+{
+    void TakePhysicalDamage(int damage);
+}
+public class PlayerCondition : MonoBehaviour,IDamageable //shift ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¹Ì³ï¿½ È¸ï¿½ï¿½
 {
     public UIConditions uiCondition;
     //public float noHungerHealthDecay;
@@ -21,18 +20,18 @@ public class PlayerCondition : MonoBehaviour //shift ´­·¶À»¶§ ½ºÅÂ¹Ì³ª °¨¼Ò, °¡¸
     {
         //hunger.Subtract(hunger.passiveValue * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.LeftShift)) // shift ´­·¶À»¶§
+        if (Input.GetKey(KeyCode.LeftShift)) // shift ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         {
-            if (stamina.curValue > 5)        // curValue °¡ 5ÀÌ»óÀÏ¶§ 
+            if (stamina.curValue > 5)        // curValue ï¿½ï¿½ 5ï¿½Ì»ï¿½ï¿½Ï¶ï¿½ 
             {
-                stamina.Subtract(stamina.curValue * 0.005f); // staminaÀÇ curValue °¡ Time.deltaTime À¸·Î ÁÙ¾îµç´Ù
+                stamina.Subtract(stamina.curValue * 0.005f); // staminaï¿½ï¿½ curValue ï¿½ï¿½ Time.deltaTime ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½ï¿½
             }
         }
         else
         {
-            if (stamina.curValue < stamina.maxValue) // curValue °¡ maxValue º¸´Ù ÀÛÀ»¶§
+            if (stamina.curValue < stamina.maxValue) // curValue ï¿½ï¿½ maxValue ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             {
-                stamina.Add(stamina.curValue * 0.004f); // staminaÀÇ curValue °¡ Time.deltaTime À¸·Î Áõ°¡ÇÑ´Ù
+                stamina.Add(stamina.curValue * 0.004f); // staminaï¿½ï¿½ curValue ï¿½ï¿½ Time.deltaTime ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
             }
         }
 
@@ -50,12 +49,16 @@ public class PlayerCondition : MonoBehaviour //shift ´­·¶À»¶§ ½ºÅÂ¹Ì³ª °¨¼Ò, °¡¸
     }
     public void Run()
     {
-        Debug.Log("ÁöÄ§");
+        Debug.Log("ï¿½ï¿½Ä§");
     }
 
     public void Die()
     {
-        Debug.Log("»ç¸ÁÇÏ¼Ì½À´Ï´Ù.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½Ï¼Ì½ï¿½ï¿½Ï´ï¿½.");
+    }
+    public void TakePhysicalDamage(int damage)
+    {
+        health.Subtract(damage);
     }
 
     //public void Heal(float amount)

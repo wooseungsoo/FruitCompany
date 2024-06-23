@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterAttackState : MonsterBaseState
 {
+    public float updateInterval = 3f;
+    private float timeSinceLastUpdate;
     public MonsterAttackState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
         
@@ -11,43 +13,48 @@ public class MonsterAttackState : MonsterBaseState
 
     public override void Enter()
     {
-        Debug.Log("공격 상태 진입");
-        //애니메이션 시작
+        Debug.Log("공격");
+
+        StartAnimation(stateMachine.monster.AnimationData.AttackParameterHash);
     }
 
     public override void Exit()
     {
-        Debug.Log("공격 상태 나감");
-
-        //애니메이션 종료
+        StopAnimation(stateMachine.monster.AnimationData.AttackParameterHash);
     }
-     public override void Update()
+    public override void Update()
     {
+        timeSinceLastUpdate += Time.deltaTime;
         base.Update();
 
-        //ForceMove();
+        if (IsInRange(attackRange))
+        {
+            if(timeSinceLastUpdate >= updateInterval)
+            {
+                Attack();
+                timeSinceLastUpdate = 0f;
+            }
 
-        // float normalizedTime = GetNormalizedTime(stateMachine.Enemy.Animator, "Attack");
-        // if (normalizedTime < 1f)
-        // {
-        //     if (normalizedTime >= stateMachine.Enemy.Data.ForceTransitionTime)
-        //         TryApplyForce();
+        }
+        else
+        {
+            if (IsInRange(chasingRange))
+            {
+                stateMachine.ChangeState(stateMachine.chasingState);
+                return;
+            }
+            else 
+            {
+                stateMachine.ChangeState(stateMachine.idleState);
+                return;
+            }
+        }
+    }
 
-        // }
-        // else
-        // {
-        //     if (IsInChasingRange())
-        //     {
-        //         stateMachine.ChangeState(stateMachine.ChasingState);
-        //         return;
-        //     }
-        //     else
-        //     {
-        //         stateMachine.ChangeState(stateMachine.IdleState);
-        //         return;
-        //     }
-        // }
-
+    void Attack()
+    {
+        //데이터에서  데미지 가져오고 플레이어 스탯 차감헤야함
+        stateMachine.monster.Target.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
     }
 
 

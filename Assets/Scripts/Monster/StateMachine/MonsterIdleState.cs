@@ -14,15 +14,15 @@ public class MonsterIdleState : MonsterBaseState
 
     public override void Enter()
     {
+        Debug.Log("IDLE");
+
         stateMachine.navMeshAgent.speed= data.idleSpeed;
-        //아래에 애니메이션
+        StartAnimation(stateMachine.monster.AnimationData.IdleParameterHash);
     }
 
     public  override void Exit()
     {
-        Debug.Log("Idle 상태 나감");
-
-        //애니메이션 스탑
+        StopAnimation(stateMachine.monster.AnimationData.IdleParameterHash);
     }
 
     public override void Update()

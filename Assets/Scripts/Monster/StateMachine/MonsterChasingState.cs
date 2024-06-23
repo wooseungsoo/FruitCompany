@@ -12,16 +12,15 @@ public class MonsterChasingState : MonsterBaseState
 
     public override void Enter()
     {
+        Debug.Log("추격");
         stateMachine.navMeshAgent.speed= data.chasingSpeed;
-        Debug.Log("chasing 상태 진입");
-        //애니메이션 시작
+        StartAnimation(stateMachine.monster.AnimationData.RunParameterHash);
+
     }
 
     public override void Exit()
     {
-        Debug.Log("chasing 상태 나감");
-
-        //애니메이션 종료
+        StopAnimation(stateMachine.monster.AnimationData.RunParameterHash);
     }
 
     public override void Update()
@@ -40,7 +39,7 @@ public class MonsterChasingState : MonsterBaseState
         }
         else if(IsInRange(attackRange))
         {
-            Debug.Log("공격 가능 범위");
+            
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
             stateMachine.ChangeState(stateMachine.attackState);
         }
