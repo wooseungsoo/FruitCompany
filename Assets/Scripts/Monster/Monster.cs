@@ -15,7 +15,6 @@ public class Monster : MonoBehaviour
     [field: SerializeField] public MonsterAnimationData AnimationData{get; private set;}
 
     public NavMeshAgent navMeshAgent{get;private set;}
-    public IDamageable Target;
 
 
     public Action onAttack;
@@ -46,4 +45,11 @@ public class Monster : MonoBehaviour
     {
 
     }
+//      void OnDrawGizmos()
+//    {
+//         Transform transform= stateMachine.monster.transform;
+
+//         Gizmos.DrawRay(transform.position,transform.forward*20);
+//         Gizmos.DrawWireCube (transform.position + transform.forward *20,transform.lossyScale*3 );
+//    }
 }

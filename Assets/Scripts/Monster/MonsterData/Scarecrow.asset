@@ -15,6 +15,6 @@ MonoBehaviour:
   monsterName: Scarecrow
   idleSpeed: 10
   chasingSpeed: 50
-  attackDamage: 10
+  attackDamage: 50
   <PlayerChasingRange>k__BackingField: 20
-  <AttackRange>k__BackingField: 10
+  <AttackRange>k__BackingField: 5

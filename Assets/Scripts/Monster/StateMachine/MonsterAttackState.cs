@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterAttackState : MonsterBaseState
 {
-    public float updateInterval = 3f;
+    public float updateInterval = 1f;
     private float timeSinceLastUpdate;
     public MonsterAttackState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
@@ -14,7 +14,8 @@ public class MonsterAttackState : MonsterBaseState
     public override void Enter()
     {
         Debug.Log("공격");
-
+        timeSinceLastUpdate=0;
+        targetInfo=stateMachine.target.GetComponent<IDamageable>();
         StartAnimation(stateMachine.monster.AnimationData.AttackParameterHash);
     }
 
@@ -27,7 +28,7 @@ public class MonsterAttackState : MonsterBaseState
         timeSinceLastUpdate += Time.deltaTime;
         base.Update();
 
-        if (IsInRange(attackRange))
+        if (IsInAttackRange())
         {
             if(timeSinceLastUpdate >= updateInterval)
             {
@@ -38,14 +39,9 @@ public class MonsterAttackState : MonsterBaseState
         }
         else
         {
-            if (IsInRange(chasingRange))
+            if (!IsInChasingRange())
             {
                 stateMachine.ChangeState(stateMachine.chasingState);
-                return;
-            }
-            else 
-            {
-                stateMachine.ChangeState(stateMachine.idleState);
                 return;
             }
         }
@@ -53,8 +49,9 @@ public class MonsterAttackState : MonsterBaseState
 
     void Attack()
     {
-        //데이터에서  데미지 가져오고 플레이어 스탯 차감헤야함
-        stateMachine.monster.Target.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
+        //데이터에서 데미지 가져오고 플레이어 체력 차감
+        targetInfo.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
+
     }
 
 

@@ -10,15 +10,12 @@ public class MonsterBaseState : IState
  
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
-    protected readonly float chasingRange;
-    protected readonly float attackRange;
+       protected IDamageable targetInfo;
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
     {
         stateMachine=monsterStateMachine;
         data= stateMachine.monster.data;
-        chasingRange= stateMachine.monster.data.PlayerChasingRange;
-        attackRange= stateMachine.monster.data.AttackRange;
     }
 
     public virtual void Enter()
@@ -62,20 +59,24 @@ public class MonsterBaseState : IState
             return 0f;
         }
     }
-   
 
-    protected bool IsInRange(float range)
+    protected bool IsInChasingRange()
     {
-        RaycastHit hit;
-        
-        //Debug.DrawRay(stateMachine.monster.transform.position,stateMachine.monster.transform.forward*range, Color.green);
+        Transform transform= stateMachine.monster.transform;
 
-        if(Physics.Raycast(stateMachine.monster.transform.position,stateMachine.monster.transform.forward,out hit,range,1<<6))
+        RaycastHit hit;
+       
+        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange,1<<6))
         {
-            stateMachine.monster.Target=hit.transform.gameObject.GetComponent<IDamageable>();
             return true;
         }
         
         return false;
+    }
+    protected bool IsInAttackRange()
+    {
+        float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
     }
 }

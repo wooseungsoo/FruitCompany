@@ -14,6 +14,7 @@ public class MonsterStateMachine : StateMachine
     public NavMeshAgent navMeshAgent;
 
     public float movementSpeed{get;private set;}
+    public IDamageable targetInfo;
 
     
 
@@ -23,6 +24,7 @@ public class MonsterStateMachine : StateMachine
         this.monster =_monster;
 
         target= GameObject.FindGameObjectWithTag("Player");
+
         idleState = new MonsterIdleState(this);
         chasingState = new MonsterChasingState(this);
         attackState = new MonsterAttackState(this);

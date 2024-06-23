@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour // гц╥╧юл╬Н ©РаВюс, ╫╨ех, ╬фюлеш ╩Г©К, юЕбЬ, юн╨╔еД╦╝
+public class PlayerController : MonoBehaviour // О©╫ц╥О©╫О©╫л╬О©╫ О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫, О©╫О©╫О©╫О©╫, О©╫н╨О©╫О©╫Д╦╝
 {
     [Header("Movement")]
     public float moveSpeed;
@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour // гц╥╧юл╬Н ©РаВюс, ╫╨ех, ╬фюлеш ╩
         }
     }
 
-    public void OnRun(InputAction.CallbackContext context) // юоа╓ ╫╨еб╧лЁ╙╟║ ╤Ё╬НаЖ╦И ╢ч╦╝аЖ ╦Ьго╟т
+    public void OnRun(InputAction.CallbackContext context) // О©╫О©╫О©╫О©╫ О©╫О©╫О©╫б╧лЁО©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫ч╦О©╫О©╫О©╫ О©╫О©╫О©╫о╟О©╫
     {
         if(context.phase == InputActionPhase.Performed)
         {

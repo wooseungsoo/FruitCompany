@@ -12,7 +12,9 @@ public class MonsterChasingState : MonsterBaseState
 
     public override void Enter()
     {
+
         Debug.Log("추격");
+        timeSinceLastUpdate = 0;
         stateMachine.navMeshAgent.speed= data.chasingSpeed;
         StartAnimation(stateMachine.monster.AnimationData.RunParameterHash);
 
@@ -27,7 +29,7 @@ public class MonsterChasingState : MonsterBaseState
     {
         stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
 
-        if(!IsInRange(chasingRange))
+        if(!IsInChasingRange())//일정 시간이 지나면 추격 상태 해제
         {
             timeSinceLastUpdate += Time.deltaTime;
             if(timeSinceLastUpdate >= updateInterval)
@@ -37,15 +39,10 @@ public class MonsterChasingState : MonsterBaseState
             }
             return;
         }
-        else if(IsInRange(attackRange))
+        else if(IsInAttackRange())//공격 가능 범위 안이라면  상태 변경
         {
-            
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
             stateMachine.ChangeState(stateMachine.attackState);
-        }
-        else
-        {
-            timeSinceLastUpdate = 0;
         }
     }
 
