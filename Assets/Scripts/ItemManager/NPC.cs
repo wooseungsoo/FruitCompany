@@ -17,7 +17,7 @@ public class NPC : MonoBehaviour
     public GameObject NPC_Menu;
 
     /// <summary>
-    /// 플레이어와 NPC 사이의 거리
+    /// 플레이어와 NPC 사이의 거리 변수
     /// </summary>
     public float distance;
 
@@ -31,6 +31,8 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        // [변수]distance = 플레이어에서 npc 사이의 거리
         distance = Vector3.Distance(Player.transform.position, transform.position);
 
         VisibleMouse();
@@ -74,3 +76,4 @@ public class NPC : MonoBehaviour
         }
     }
 }
+
