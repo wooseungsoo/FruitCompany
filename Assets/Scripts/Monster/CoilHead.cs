@@ -6,11 +6,10 @@ using UnityEngine;
 public class CoilHead : Monster,ISightCheck
 {
     // Start is called before the first frame update
-    bool canOperate=true;
     public override void SetAction()
     {
         onChasing+=stateMachine.chasingState.CheckSightChaing;
-        onAttack+=stateMachine.chasingState.AccelerationChasing;
+        //onAttack+=stateMachine.chasingState.AccelerationChasing;
 
     }
     public void InSight()
@@ -21,5 +20,4 @@ public class CoilHead : Monster,ISightCheck
     {
         canOperate=true;
     }
-    // hit?
 }

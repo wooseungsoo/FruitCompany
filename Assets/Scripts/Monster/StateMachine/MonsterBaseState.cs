@@ -10,7 +10,8 @@ public class MonsterBaseState : IState
  
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
-       protected IDamageable targetInfo;
+    protected IDamageable targetInfo;
+
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
     {

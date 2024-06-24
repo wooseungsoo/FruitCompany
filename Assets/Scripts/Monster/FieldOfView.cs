@@ -12,7 +12,7 @@ public class FieldOfView : MonoBehaviour
     public LayerMask obstacleMask;
 
     public List<Transform>visibleTargets =new List<Transform>();
-   // public List<Transform> =new List<Transform>();
+    public List<ISightCheck> sightTargets =new List<ISightCheck>();
     void Start()
     {
         //StartCoroutine();
@@ -40,11 +40,17 @@ public class FieldOfView : MonoBehaviour
                     if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//시야 범위에 다른 오브젝트가 없다면
                     {
                         //Debug.Log(targetsInViewRadius[0].gameObject.name);
-                        if(target.gameObject.GetComponent<IDamageable>()!=null)
+                        visibleTargets.Add(target);//보고있음 체크
+
+                        if(target.TryGetComponent(out ISightCheck sights))//움직임 제어,,,해주고싶다 진심
                         {
+                            sightTargets.Add(sights);
+                            for(int j=0; j<visibleTargets.Count; j++)
+                            {
+                                sightTargets[i].InSight();
+                            }
 
                         }
-                        visibleTargets.Add(target);//보고있음 체크
                     }
                 }
             }

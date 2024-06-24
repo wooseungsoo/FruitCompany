@@ -13,6 +13,7 @@ public class MonsterStateMachine : StateMachine
     public MonsterAttackState attackState{get; private set;}
     public NavMeshAgent navMeshAgent;
 
+
     public float movementSpeed{get;private set;}
     public IDamageable targetInfo;
 

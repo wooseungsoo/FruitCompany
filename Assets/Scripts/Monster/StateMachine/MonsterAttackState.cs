@@ -32,7 +32,14 @@ public class MonsterAttackState : MonsterBaseState
         {
             if(timeSinceLastUpdate >= updateInterval)
             {
-                Attack();
+                if(stateMachine.monster.onAttack!=null)
+                {
+                    stateMachine.monster.onAttack.Invoke();
+                }
+                else
+                {
+                    Attack();
+                }
                 timeSinceLastUpdate = 0f;
             }
 
@@ -49,9 +56,8 @@ public class MonsterAttackState : MonsterBaseState
 
     void Attack()
     {
-        //데이터에서 데미지 가져오고 플레이어 체력 차감
+        if(stateMachine.monster.canOperate==true)
         targetInfo.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
-
     }
 
 

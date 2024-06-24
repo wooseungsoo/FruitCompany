@@ -6,7 +6,8 @@ using UnityEngine.AI;
 
 public interface ISightCheck
 {
-
+    public void InSight();
+    public void OutSight();
 }
 public class Monster : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class Monster : MonoBehaviour
     [field: SerializeField] public MonsterAnimationData AnimationData{get; private set;}
 
     public NavMeshAgent navMeshAgent{get;private set;}
+    public bool canOperate=true;
 
 
     public Action onAttack;

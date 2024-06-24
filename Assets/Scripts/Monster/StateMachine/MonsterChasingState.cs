@@ -64,5 +64,14 @@ public class MonsterChasingState : MonsterBaseState
     }
     public void CheckSightChaing()//시선 감지로 쫓아오는경우
     {
+        if(stateMachine.monster.canOperate==true)
+        {
+            stateMachine.navMeshAgent.speed=stateMachine.monster.data.chasingSpeed;
+            stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        }
+        else
+        {
+            stateMachine.navMeshAgent.speed=0f;
+        }
     }
 }
