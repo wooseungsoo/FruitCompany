@@ -5,24 +5,24 @@ using UnityEngine.AI;
 
 public class MonsterIdleState : MonsterBaseState
 {
-    public float updateInterval = 3f;
+    public float updateInterval;
     private float timeSinceLastUpdate;
     public MonsterIdleState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
-
+        updateInterval=stateMachine.monster.data.randomWanderDealy;
     }
 
     public override void Enter()
     {
+        Debug.Log("IDLE");
+
         stateMachine.navMeshAgent.speed= data.idleSpeed;
-        //아래에 애니메이션
+        StartAnimation(stateMachine.monster.AnimationData.IdleParameterHash);
     }
 
     public  override void Exit()
     {
-        Debug.Log("Idle 상태 나감");
-
-        //애니메이션 스탑
+        StopAnimation(stateMachine.monster.AnimationData.IdleParameterHash);
     }
 
     public override void Update()
@@ -39,7 +39,7 @@ public class MonsterIdleState : MonsterBaseState
         }
     
 
-        if(IsInChaseRange())
+        if(IsInChasingRange())
         {
             stateMachine.ChangeState(stateMachine.chasingState);
             return;

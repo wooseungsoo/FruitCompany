@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
-public class PlayerCondition : MonoBehaviour //shift ¥≠∑∂¿ª∂ß Ω∫≈¬πÃ≥™ ∞®º“, ∞°∏∏»˜ ¿÷¿ª∂ß Ω∫≈¬πÃ≥™ »∏∫π
+
+public interface IDamageable
+{
+    void TakePhysicalDamage(int damage);
+}
+public class PlayerCondition : MonoBehaviour,IDamageable //shift ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ¬πÃ≥ÔøΩ ÔøΩÔøΩÔøΩÔøΩ, ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ¬πÃ≥ÔøΩ »∏ÔøΩÔøΩ
 {
     public UIConditions uiCondition;
-    //public float noHungerHealthDecay;
 
+    //public float noHungerHealthDecay;
     Conditions health { get { return uiCondition.health; } }
     // Conditions hunger { get { return uiCondition.hunger; } }
     Conditions stamina { get { return uiCondition.stamina; } }
@@ -19,23 +18,15 @@ public class PlayerCondition : MonoBehaviour //shift ¥≠∑∂¿ª∂ß Ω∫≈¬πÃ≥™ ∞®º“, ∞°∏
     // Update is called once per frame
     void Update()
     {
-        //hunger.Subtract(hunger.passiveValue * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.LeftShift)) // shift ¥≠∑∂¿ª∂ß
+        if (CharacterManager.Instance.Player.controller.dash == true)
         {
-            if (stamina.curValue > 5)        // curValue ∞° 5¿ÃªÛ¿œ∂ß 
-            {
-                stamina.Subtract(stamina.curValue * 0.005f); // stamina¿« curValue ∞° Time.deltaTime ¿∏∑Œ ¡ŸæÓµÁ¥Ÿ
-            }
+            UseStamina();
         }
         else
         {
-            if (stamina.curValue < stamina.maxValue) // curValue ∞° maxValue ∫∏¥Ÿ ¿€¿ª∂ß
-            {
-                stamina.Add(stamina.curValue * 0.004f); // stamina¿« curValue ∞° Time.deltaTime ¿∏∑Œ ¡ı∞°«—¥Ÿ
-            }
-        }
+            stamina.Add(stamina.passiveValue * Time.deltaTime);
 
+        }
 
         if (health.curValue == 0f)
         {
@@ -46,16 +37,29 @@ public class PlayerCondition : MonoBehaviour //shift ¥≠∑∂¿ª∂ß Ω∫≈¬πÃ≥™ ∞®º“, ∞°∏
         {
             Run();
         }
+    }
 
+    public bool UseStamina()
+    {
+        if (stamina.curValue - 0.25f < 0f)
+        {
+            return false;
+        }
+        stamina.Subtract(0.15f);
+        return true;
     }
     public void Run()
     {
-        Debug.Log("¡ˆƒß");
+        Debug.Log("ÔøΩÔøΩƒß");
     }
 
     public void Die()
     {
-        Debug.Log("ªÁ∏¡«œºÃΩ¿¥œ¥Ÿ.");
+        Debug.Log("ÔøΩÔøΩÔøΩÔøΩœºÃΩÔøΩÔøΩœ¥ÔøΩ.");
+    }
+    public void TakePhysicalDamage(int damage)
+    {
+        health.Subtract(damage);
     }
 
     //public void Heal(float amount)

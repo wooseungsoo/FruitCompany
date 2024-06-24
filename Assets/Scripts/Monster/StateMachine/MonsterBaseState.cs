@@ -10,6 +10,8 @@ public class MonsterBaseState : IState
  
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
+    protected IDamageable targetInfo;
+
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
     {
@@ -29,46 +31,56 @@ public class MonsterBaseState : IState
 
     public virtual void Update()
     {
-        //Move();
+        
+    }
+    protected void StartAnimation(int animationHash)
+    {
+        stateMachine.monster.animator.SetBool(animationHash,true);
+    }
+     protected void StopAnimation(int animationHash)
+    {
+        stateMachine.monster.animator.SetBool(animationHash,false);
     }
 
-    // private void Move()
-    // {
-    //     Vector3 movementDirection=GetMovementDirection();
-    //     // Rotate(movementDirection);
-    //    //Move(movementDirection);
-        
-    // }
-    // void Move(Vector3 movementDirection)
-    // {
-    //     float movementSpeed= GetMovementSpeed();
-    //     stateMachine.monster.controller.Move(movementDirection*movementSpeed);//조금다름
-    // }
-
-    // Vector3 GetMovementDirection()
-    // {
-    //     Vector3 dir = (stateMachine.target.transform.position-stateMachine.monster.transform.position).normalized;
-    //     return dir;
-    // }
-
-    // private float GetMovementSpeed()
-    // {
-    //     float movementSpeed = stateMachine.movementSpeed*stateMachine.movementSpeedModifier;
-    //     return movementSpeed;
-    // }
-
-    protected bool IsInChaseRange()
+      protected float GetNormalizedTime(Animator animator, string tag)
     {
-        RaycastHit hit;
-        
-        Debug.DrawRay(stateMachine.monster.transform.position,stateMachine.monster.transform.forward*stateMachine.monster.data.PlayerChasingRange, Color.green);
+        AnimatorStateInfo currentInfo = animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo nextInfo = animator.GetNextAnimatorStateInfo(0);
 
-        if(Physics.Raycast(stateMachine.monster.transform.position,stateMachine.monster.transform.forward,out hit,stateMachine.monster.data.PlayerChasingRange))
+        if (animator.IsInTransition(0) && nextInfo.IsTag(tag))
         {
-            Debug.Log(hit.transform.gameObject.name);
-            return true;
+            return nextInfo.normalizedTime;
+        }
+        else if (!animator.IsInTransition(0) && currentInfo.IsTag(tag))
+        {
+            return currentInfo.normalizedTime;
+        }
+        else
+        {
+            return 0f;
+        }
+    }
+
+    protected bool IsInChasingRange()
+    {
+        Transform transform= stateMachine.monster.transform;
+
+        RaycastHit hit;
+       
+        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
+        {
+            if(hit.transform.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
         }
         
         return false;
+    }
+    protected bool IsInAttackRange()
+    {
+        float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+
+        return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
     }
 }

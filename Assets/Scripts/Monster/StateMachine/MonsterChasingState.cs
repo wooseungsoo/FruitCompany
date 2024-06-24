@@ -4,32 +4,37 @@ using UnityEngine;
 
 public class MonsterChasingState : MonsterBaseState
 {
-    public float updateInterval = 3f;
+    public float updateInterval;
     private float timeSinceLastUpdate;
     public MonsterChasingState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
-        
+        updateInterval=stateMachine.monster.data.chasingCount;
     }
 
     public override void Enter()
     {
-        stateMachine.navMeshAgent.speed= data.chasingSpeed;
-        Debug.Log("chasing 상태 진입");
-        //애니메이션 시작
+        //Debug.Log("추격");
+        timeSinceLastUpdate = 0;
+        StartAnimation(stateMachine.monster.AnimationData.RunParameterHash);
     }
 
     public override void Exit()
     {
-        Debug.Log("chasing 상태 나감");
-
-        //애니메이션 종료
+        StopAnimation(stateMachine.monster.AnimationData.RunParameterHash);
     }
 
     public override void Update()
     {
-        stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        if(stateMachine.monster.onChasing!=null)
+        {
+            stateMachine.monster.onChasing.Invoke();
+        }
+        else
+        {
+            stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        }
 
-        if(!IsInChaseRange())
+        if(!IsInChasingRange())//일정 시간이 지나면 추격 상태 해제
         {
             timeSinceLastUpdate += Time.deltaTime;
             if(timeSinceLastUpdate >= updateInterval)
@@ -39,11 +44,11 @@ public class MonsterChasingState : MonsterBaseState
             }
             return;
         }
-        else if(IsInAttackRange())
+        else if(IsInAttackRange())//공격 가능 범위 안이라면  상태 변경
         {
-            Debug.Log("공격 가능 범위");
-            stateMachine.ChangeState(stateMachine.chasingState);
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
+            stateMachine.navMeshAgent.speed=data.idleSpeed;
+            stateMachine.ChangeState(stateMachine.attackState);
         }
         else
         {
@@ -51,11 +56,22 @@ public class MonsterChasingState : MonsterBaseState
         }
     }
 
-    protected bool IsInAttackRange()
+    public void AccelerationChasing()//가속도로 쫓아오는 경우
     {
-        float playerDistanceSqr=(stateMachine.target.transform.position-stateMachine.monster.transform.position).sqrMagnitude;
-        return playerDistanceSqr <= stateMachine.monster.data.AttackRange;
+        stateMachine.navMeshAgent.speed++;
+        stateMachine.navMeshAgent.speed= Mathf.Min(stateMachine.navMeshAgent.speed,data.chasingSpeed);
+        stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
     }
-
-    
+    public void CheckSightChaing()//시선 감지로 쫓아오는경우
+    {
+        if(stateMachine.monster.canOperate==true)
+        {
+            stateMachine.navMeshAgent.speed=stateMachine.monster.data.chasingSpeed;
+            stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        }
+        else
+        {
+            stateMachine.navMeshAgent.speed=0f;
+        }
+    }
 }

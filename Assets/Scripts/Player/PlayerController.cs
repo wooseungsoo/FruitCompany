@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
-public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »ç¿ë, ÀåÂø, ÀÎº¥Åä¸®
+public class PlayerController : MonoBehaviour // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½, ï¿½Îºï¿½ï¿½ä¸®
 {
     [Header("Movement")]
     public float moveSpeed;
-    public float runSpeed;
-    private float currentSpeed;
+    public float maxMoveSpeed;
+    public float minMoveSpeed;
+    public bool dash;
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
@@ -21,18 +24,18 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
-    private Rigidbody rigidbody;
+    public Action inventory;
+    private Rigidbody rb;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        currentSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -46,18 +49,21 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         CameraLook();
     }
 
-
-
     void Move()
     {
-        Vector3 direction = transform.forward * curMovementInput.y * currentSpeed + transform.right * curMovementInput.x * currentSpeed;
-
-        direction = direction * moveSpeed;
-        direction.y = rigidbody.velocity.y;
-
-        rigidbody.velocity = direction;
+        Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        if (dash == false || CharacterManager.Instance.Player.condition.UseStamina() == false)
+        {
+            moveSpeed = minMoveSpeed;
+        }
+        else
+        {
+            moveSpeed = maxMoveSpeed;
+        }
+        dir *= moveSpeed;
+        dir.y = rb.velocity.y;
+        rb.velocity = dir;
     }
-
 
     void CameraLook()
     {
@@ -81,30 +87,29 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         }
     }
 
-
     public void OnLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
 
-
     public void OnJump(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
         {
-            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
 
-    public void OnRun(InputAction.CallbackContext context) // ÀÏÁ¤ ½ºÅÂ¹Ì³ª°¡ ¶³¾îÁö¸é ´Þ¸®Áö ¸øÇÏ°Ô
+
+    public void OnRun(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed )
         {
-            currentSpeed = runSpeed;
-        }
+            dash = true;
+}
         else if (context.phase == InputActionPhase.Canceled)
         {
-            currentSpeed = moveSpeed;
+            dash = false;
         }
     }
 
