@@ -70,3 +70,13 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/AssetStore/Flooded_Grounds/Prefabs/Nature/Trees/TreeCreator_Tall_B_Textures/diffuse.png
+Assets/AssetStore/Flooded_Grounds/Prefabs/Nature/Trees/TreeCreator_Tall_A_Textures/diffuse.png
+Assets/AssetStore/Flooded_Grounds/Prefabs/Nature/Trees/TreeCreator_Crinkly_B_Textures/diffuse.png
+Assets/AssetStore/Flooded_Grounds/Content/Textures/PROP_ParkBench1_A.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Villa1_N.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Structures1_A.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Doors1_N.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Doors1_A.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Cabins1_N.tif
+Assets/AssetStore/Flooded_Grounds/Content/Textures/BLD_Cabins1_A.tif
