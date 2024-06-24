@@ -8,8 +8,8 @@ public interface IDamageable
 public class PlayerCondition : MonoBehaviour,IDamageable //shift �������� ���¹̳� ����, ������ ������ ���¹̳� ȸ��
 {
     public UIConditions uiCondition;
-    //public float noHungerHealthDecay;
 
+    //public float noHungerHealthDecay;
     Conditions health { get { return uiCondition.health; } }
     // Conditions hunger { get { return uiCondition.hunger; } }
     Conditions stamina { get { return uiCondition.stamina; } }
@@ -18,23 +18,15 @@ public class PlayerCondition : MonoBehaviour,IDamageable //shift �����
     // Update is called once per frame
     void Update()
     {
-        //hunger.Subtract(hunger.passiveValue * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.LeftShift)) // shift ��������
+        if (CharacterManager.Instance.Player.controller.dash == true)
         {
-            if (stamina.curValue > 5)        // curValue �� 5�̻��϶� 
-            {
-                stamina.Subtract(stamina.curValue * 0.005f); // stamina�� curValue �� Time.deltaTime ���� �پ���
-            }
+            UseStamina();
         }
         else
         {
-            if (stamina.curValue < stamina.maxValue) // curValue �� maxValue ���� ������
-            {
-                stamina.Add(stamina.curValue * 0.004f); // stamina�� curValue �� Time.deltaTime ���� �����Ѵ�
-            }
-        }
+            stamina.Add(stamina.passiveValue * Time.deltaTime);
 
+        }
 
         if (health.curValue == 0f)
         {
@@ -45,7 +37,16 @@ public class PlayerCondition : MonoBehaviour,IDamageable //shift �����
         {
             Run();
         }
+    }
 
+    public bool UseStamina()
+    {
+        if (stamina.curValue - 0.25f < 0f)
+        {
+            return false;
+        }
+        stamina.Subtract(0.15f);
+        return true;
     }
     public void Run()
     {
