@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class MonsterIdleState : MonsterBaseState
 {
-    public float updateInterval = 3f;
+    public float updateInterval;
     private float timeSinceLastUpdate;
     public MonsterIdleState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
-
+        updateInterval=stateMachine.monster.data.randomWanderDealy;
     }
 
     public override void Enter()

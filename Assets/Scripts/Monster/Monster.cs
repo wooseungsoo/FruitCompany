@@ -4,10 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public interface ISightCheck
+{
+
+}
 public class Monster : MonoBehaviour
 {
     public MonsterSO data;
-    private MonsterStateMachine stateMachine;
+    protected MonsterStateMachine stateMachine;
 
     public Animator animator{get; private set;}
 
@@ -41,15 +45,15 @@ public class Monster : MonoBehaviour
         stateMachine.Update();
     }
 
-    protected void SetAction()
+    public virtual void SetAction()
     {
 
     }
-//      void OnDrawGizmos()
-//    {
-//         Transform transform= stateMachine.monster.transform;
+    //      void OnDrawGizmos()
+    //    {
+    //         Transform transform= stateMachine.monster.transform;
 
-//         Gizmos.DrawRay(transform.position,transform.forward*20);
-//         Gizmos.DrawWireCube (transform.position + transform.forward *20,transform.lossyScale*3 );
-//    }
+    //         Gizmos.DrawRay(transform.position,transform.forward*20);
+    //         Gizmos.DrawWireCube (transform.position + transform.forward *20,transform.lossyScale*3 );
+    //    }
 }

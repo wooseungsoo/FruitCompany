@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class MonsterChasingState : MonsterBaseState
 {
-    public float updateInterval = 3f;
+    public float updateInterval;
     private float timeSinceLastUpdate;
     public MonsterChasingState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
+        updateInterval=stateMachine.monster.data.chasingCount;
     }
 
     public override void Enter()
     {
-
-        Debug.Log("추격");
+        //Debug.Log("추격");
         timeSinceLastUpdate = 0;
-        stateMachine.navMeshAgent.speed= data.chasingSpeed;
         StartAnimation(stateMachine.monster.AnimationData.RunParameterHash);
-
     }
 
     public override void Exit()
@@ -27,7 +25,14 @@ public class MonsterChasingState : MonsterBaseState
 
     public override void Update()
     {
-        stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        if(stateMachine.monster.onChasing!=null)
+        {
+            stateMachine.monster.onChasing.Invoke();
+        }
+        else
+        {
+            stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+        }
 
         if(!IsInChasingRange())//일정 시간이 지나면 추격 상태 해제
         {
@@ -42,10 +47,22 @@ public class MonsterChasingState : MonsterBaseState
         else if(IsInAttackRange())//공격 가능 범위 안이라면  상태 변경
         {
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
+            stateMachine.navMeshAgent.speed=data.idleSpeed;
             stateMachine.ChangeState(stateMachine.attackState);
+        }
+        else
+        {
+            timeSinceLastUpdate = 0;
         }
     }
 
-   
-    
+    public void AccelerationChasing()//가속도로 쫓아오는 경우
+    {
+        stateMachine.navMeshAgent.speed++;
+        stateMachine.navMeshAgent.speed= Mathf.Min(stateMachine.navMeshAgent.speed,data.chasingSpeed);
+        stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
+    }
+    public void CheckSightChaing()//시선 감지로 쫓아오는경우
+    {
+    }
 }

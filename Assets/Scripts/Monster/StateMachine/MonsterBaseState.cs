@@ -66,9 +66,12 @@ public class MonsterBaseState : IState
 
         RaycastHit hit;
        
-        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange,1<<6))
+        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
         {
-            return true;
+            if(hit.transform.gameObject.CompareTag("Player"))
+            {
+                return true;
+            }
         }
         
         return false;

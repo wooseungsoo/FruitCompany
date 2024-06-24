@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MonsterAttackState : MonsterBaseState
 {
-    public float updateInterval = 1f;
+    public float updateInterval;
     private float timeSinceLastUpdate;
     public MonsterAttackState(MonsterStateMachine monsterStateMachine) : base(monsterStateMachine)
     {
-        
+        updateInterval=stateMachine.monster.data.attackDealy;
     }
 
     public override void Enter()

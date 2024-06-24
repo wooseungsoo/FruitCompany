@@ -10,7 +10,10 @@ public class MonsterSO : ScriptableObject
     public float idleSpeed;
     public float chasingSpeed;
     public int attackDamage;
+    public float attackDealy;
+    public float randomWanderDealy;
+    public float chasingCount;
 
-    [field: SerializeField] public float PlayerChasingRange { get; private set; } = 10f;
-    [field: SerializeField] public float AttackRange { get; private set; } = 1.5f;
+    [field: SerializeField] public float PlayerChasingRange { get; private set; } 
+    [field: SerializeField] public float AttackRange { get; private set; }
 }
