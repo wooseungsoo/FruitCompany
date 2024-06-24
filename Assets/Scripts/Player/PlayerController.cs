@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
+    public Action inventory;
     private Rigidbody rb;
 
     private void Awake()
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        //currentSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -47,8 +48,6 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     {
         CameraLook();
     }
-
-
 
     void Move()
     {
@@ -65,7 +64,6 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         dir.y = rb.velocity.y;
         rb.velocity = dir;
     }
-
 
     void CameraLook()
     {

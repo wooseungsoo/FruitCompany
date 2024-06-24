@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가만히 있을때 스태미나 회복
 {
@@ -41,11 +35,11 @@ public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가�
 
     public bool UseStamina()
     {
-        if (stamina.curValue - 0.4f < 0f)
+        if (stamina.curValue - 0.25f < 0f)
         {
             return false;
         }
-        stamina.Subtract(0.4f);
+        stamina.Subtract(0.15f);
         return true;
     }
     public void Run()
