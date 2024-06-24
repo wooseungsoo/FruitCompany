@@ -9,8 +9,8 @@ using static UnityEditor.Timeline.TimelinePlaybackControls;
 public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가만히 있을때 스태미나 회복
 {
     public UIConditions uiCondition;
-    //public float noHungerHealthDecay;
 
+    //public float noHungerHealthDecay;
     Conditions health { get { return uiCondition.health; } }
     // Conditions hunger { get { return uiCondition.hunger; } }
     Conditions stamina { get { return uiCondition.stamina; } }
@@ -23,19 +23,18 @@ public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가�
 
         if (Input.GetKey(KeyCode.LeftShift)) // shift 눌렀을때
         {
-            if (stamina.curValue > 5)        // curValue 가 5이상일때 
+            if (stamina.curValue > 0)        // curValue 가 0이상일때 
             {
-                stamina.Subtract(stamina.curValue * 0.005f); // stamina의 curValue 가 Time.deltaTime 으로 줄어든다
+                stamina.Subtract(0.4f); // stamina의 curValue 가 0.4씩 줄어든다
             }
         }
         else
         {
             if (stamina.curValue < stamina.maxValue) // curValue 가 maxValue 보다 작을때
             {
-                stamina.Add(stamina.curValue * 0.004f); // stamina의 curValue 가 Time.deltaTime 으로 증가한다
+                stamina.Add(0.3f); // stamina의 curValue 가 0.3씩 증가한다
             }
         }
-
 
         if (health.curValue == 0f)
         {

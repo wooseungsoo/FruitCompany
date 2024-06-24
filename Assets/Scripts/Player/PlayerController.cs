@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »ç¿ë, ÀåÂø, ÀÎº¥Åä¸®
 {
@@ -22,6 +23,9 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     private Vector2 mouseDelta;
 
     private Rigidbody rigidbody;
+
+    public UIConditions runConditions;
+    Conditions stamina { get { return runConditions.stamina; } }
 
     private void Awake()
     {
@@ -79,6 +83,7 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         {
             curMovementInput = Vector2.zero;
         }
+
     }
 
 
@@ -96,11 +101,18 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         }
     }
 
-    public void OnRun(InputAction.CallbackContext context) // ÀÏÁ¤ ½ºÅÂ¹Ì³ª°¡ ¶³¾îÁö¸é ´Þ¸®Áö ¸øÇÏ°Ô
+    public void OnRun(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed )
         {
-            currentSpeed = runSpeed;
+            if(stamina.curValue >= 1)
+            {
+                currentSpeed = runSpeed;
+            }
+            else if(stamina.curValue <= 0)
+            {
+                currentSpeed = moveSpeed;
+            }
         }
         else if (context.phase == InputActionPhase.Canceled)
         {
