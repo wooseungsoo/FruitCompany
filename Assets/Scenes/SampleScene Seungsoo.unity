@@ -351,6 +351,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 405850, guid: 5601521e5fc5f7743993db1ebd891042, type: 3}
   m_PrefabInstance: {fileID: 31529613}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &38849283 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112190, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+  m_PrefabInstance: {fileID: 2104255278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &50405259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2499,9 +2504,10 @@ GameObject:
   - component: {fileID: 374680137}
   - component: {fileID: 374680136}
   - component: {fileID: 374680139}
+  - component: {fileID: 374680140}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2565,7 +2571,7 @@ Transform:
   m_GameObject: {fileID: 374680132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 173, y: 6.5, z: 19.59}
+  m_LocalPosition: {x: 148, y: 16, z: 140}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2706,6 +2712,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d63c778c2160a464d83bdc723d4008f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &374680140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374680132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d713277b17de144badcb0ea99679e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &380386423
@@ -4127,10 +4145,21 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6506994, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6506994, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 112190, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 782343141}
   m_SourcePrefab: {fileID: 100100000, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
 --- !u!4 &557532744 stripped
 Transform:
@@ -6488,6 +6517,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 471316, guid: eb76103868aa7dc4c8e39613a5835fb5, type: 3}
   m_PrefabInstance: {fileID: 781890680}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &782343140 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 112190, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+  m_PrefabInstance: {fileID: 557532743}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &782343141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782343140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f670422d885514d860663ebbfdf999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: HouseSceneSeungsoo
+  spawnPosition: {x: 27, y: 0, z: -41}
 --- !u!1001 &785935512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16807,16 +16855,37 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6506994, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 112190, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2104255280}
   m_SourcePrefab: {fileID: 100100000, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
 --- !u!4 &2104255279 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 489730, guid: 4ba8e211073bd4c4883585b581504113, type: 3}
   m_PrefabInstance: {fileID: 2104255278}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2104255280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38849283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f670422d885514d860663ebbfdf999, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: HouseSceneSeungsoo
+  spawnPosition: {x: 27, y: 0, z: -41}
 --- !u!1001 &2105165029
 PrefabInstance:
   m_ObjectHideFlags: 0
