@@ -13,15 +13,20 @@ public class FieldOfView : MonoBehaviour
 
     public List<Transform>visibleTargets =new List<Transform>();
     public List<ISightCheck> sightTargets =new List<ISightCheck>();
-    void Start()
+
+
+    // void Start()
+    // {
+    //     //InvokeRepeating("FindVisibleTargets",0f,0.3f);
+    // }
+    private void Update() 
     {
-        //StartCoroutine();
-        InvokeRepeating("FindVisibleTargets",1f,1f);
+        FindVisibleTargets();
     }
 
     void FindVisibleTargets()
     {
-        visibleTargets.Clear();
+        
         //viewRadious를 반지름으로 한 영역 내에 targetlayer 콜라이더를 가져옴
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
@@ -42,26 +47,34 @@ public class FieldOfView : MonoBehaviour
                         //Debug.Log(targetsInViewRadius[0].gameObject.name);
                         visibleTargets.Add(target);//보고있음 체크
 
-                        if(target.TryGetComponent(out ISightCheck sights))//움직임 제어,,,해주고싶다 진심
+                        if(target.TryGetComponent(out ISightCheck sights))
                         {
                             sightTargets.Add(sights);
-                            for(int j=0; j<visibleTargets.Count; j++)
+                            for(int j=0; j<sightTargets.Count; j++)
                             {
-                                sightTargets[i].InSight();
+                                sightTargets[j].InSight();
                             }
 
                         }
                     }
+                   
+                }
+                else
+                {
+                    Initialize();
                 }
             }
         }
+        
     }
-    public void test()
+    public void Initialize()
     {
-        // for(int i=0; i<visibleTargets.Count; i++)
-        // {
-        //     visibleTargets[i].TakePhysicalDamage(damage);
-        // }
+        for(int i=0; i<sightTargets.Count; i++)
+        {
+            sightTargets[i].OutSight();
+        }
+        visibleTargets.Clear();
+        sightTargets.Clear();
     }
     public Vector3 DirFromAngle(float angleDegrees, bool angleIsGlobal)
     {

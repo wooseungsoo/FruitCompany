@@ -45,6 +45,7 @@ public class Monster : MonoBehaviour
     private void Update() 
     {
         stateMachine.Update();
+        //Debug.Log(canOperate);
     }
 
     public virtual void SetAction()

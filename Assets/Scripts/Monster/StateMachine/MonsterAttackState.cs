@@ -13,7 +13,7 @@ public class MonsterAttackState : MonsterBaseState
 
     public override void Enter()
     {
-        Debug.Log("ê³µê²©");
+        //Debug.Log("°ø°Ý");
         timeSinceLastUpdate=0;
         targetInfo=stateMachine.target.GetComponent<IDamageable>();
         StartAnimation(stateMachine.monster.AnimationData.AttackParameterHash);
@@ -32,14 +32,7 @@ public class MonsterAttackState : MonsterBaseState
         {
             if(timeSinceLastUpdate >= updateInterval)
             {
-                if(stateMachine.monster.onAttack!=null)
-                {
-                    stateMachine.monster.onAttack.Invoke();
-                }
-                else
-                {
-                    Attack();
-                }
+                Attack();
                 timeSinceLastUpdate = 0f;
             }
 
@@ -56,8 +49,12 @@ public class MonsterAttackState : MonsterBaseState
 
     void Attack()
     {
+       // Debug.Log(stateMachine.monster.canOperate);
         if(stateMachine.monster.canOperate==true)
-        targetInfo.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
+        {
+            targetInfo.TakePhysicalDamage(stateMachine.monster.data.attackDamage);
+
+        }
     }
 
 

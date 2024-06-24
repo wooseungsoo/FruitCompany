@@ -14,7 +14,7 @@ public class MonsterIdleState : MonsterBaseState
 
     public override void Enter()
     {
-        Debug.Log("IDLE");
+        //Debug.Log("IDLE");
 
         stateMachine.navMeshAgent.speed= data.idleSpeed;
         StartAnimation(stateMachine.monster.AnimationData.IdleParameterHash);
@@ -34,6 +34,7 @@ public class MonsterIdleState : MonsterBaseState
         
         if (timeSinceLastUpdate >= updateInterval) //n초 마다 랜덤 배회
         {   
+            if(stateMachine.monster.canOperate)
             stateMachine.navMeshAgent.SetDestination(GetRandomPosition());
             timeSinceLastUpdate = 0f;
         }
@@ -48,7 +49,7 @@ public class MonsterIdleState : MonsterBaseState
 
     Vector3 GetRandomPosition()
     {
-        Vector3 randomDirection = Random.insideUnitSphere*20f; // 반경에 랜덤으로 구 배치
+        Vector3 randomDirection = Random.insideUnitSphere*10f; // 반경에 랜덤으로 구 배치
         randomDirection+= stateMachine.monster.gameObject.transform.position;
 
         NavMeshHit hit;

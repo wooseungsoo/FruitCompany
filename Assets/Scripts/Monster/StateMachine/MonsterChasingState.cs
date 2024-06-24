@@ -13,7 +13,7 @@ public class MonsterChasingState : MonsterBaseState
 
     public override void Enter()
     {
-        //Debug.Log("ì¶”ê²©");
+       // Debug.Log("Ãß°İ");
         timeSinceLastUpdate = 0;
         StartAnimation(stateMachine.monster.AnimationData.RunParameterHash);
     }
@@ -34,7 +34,7 @@ public class MonsterChasingState : MonsterBaseState
             stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
         }
 
-        if(!IsInChasingRange())//ì¼ì • ì‹œê°„ì´ ì§€ë‚˜ë©´ ì¶”ê²© ìƒíƒœ í•´ì œ
+        if(!IsInChasingRange())//?¼? • ?‹œê°„ì´ ì§??‚˜ë©? ì¶”ê²© ?ƒ?ƒœ ?•´? œ
         {
             timeSinceLastUpdate += Time.deltaTime;
             if(timeSinceLastUpdate >= updateInterval)
@@ -44,7 +44,7 @@ public class MonsterChasingState : MonsterBaseState
             }
             return;
         }
-        else if(IsInAttackRange())//ê³µê²© ê°€ëŠ¥ ë²”ìœ„ ì•ˆì´ë¼ë©´  ìƒíƒœ ë³€ê²½
+        else if(IsInAttackRange())//ê³µê²© ê°??Š¥ ë²”ìœ„ ?•ˆ?´?¼ë©?  ?ƒ?ƒœ ë³?ê²?
         {
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
             stateMachine.navMeshAgent.speed=data.idleSpeed;
@@ -56,22 +56,19 @@ public class MonsterChasingState : MonsterBaseState
         }
     }
 
-    public void AccelerationChasing()//ê°€ì†ë„ë¡œ ì«“ì•„ì˜¤ëŠ” ê²½ìš°
+    public void AccelerationChasing()//ê°??†?„ë¡? ì«“ì•„?˜¤?Š” ê²½ìš°
     {
         stateMachine.navMeshAgent.speed++;
         stateMachine.navMeshAgent.speed= Mathf.Min(stateMachine.navMeshAgent.speed,data.chasingSpeed);
         stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
     }
-    public void CheckSightChaing()//ì‹œì„  ê°ì§€ë¡œ ì«“ì•„ì˜¤ëŠ”ê²½ìš°
+    public void CheckSightChaing()//?‹œ?„  ê°ì??ë¡? ì«“ì•„?˜¤?Š”ê²½ìš°
     {
         if(stateMachine.monster.canOperate==true)
         {
             stateMachine.navMeshAgent.speed=stateMachine.monster.data.chasingSpeed;
             stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
         }
-        else
-        {
-            stateMachine.navMeshAgent.speed=0f;
-        }
+        
     }
 }
