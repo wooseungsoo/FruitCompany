@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
 {
     [Header("Movement")]
     public float moveSpeed;
-    public float runSpeed;
-    private float currentSpeed;
+    public float maxMoveSpeed;
+    public float minMoveSpeed;
+    public bool dash;
     public float jumpPower;
     private Vector2 curMovementInput;
     public LayerMask groundLayerMask;
@@ -22,21 +23,18 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
-    private Rigidbody rigidbody;
-
-    public UIConditions runConditions;
-    Conditions stamina { get { return runConditions.stamina; } }
+    private Rigidbody rb;
 
     private void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        currentSpeed = moveSpeed;
+        //currentSpeed = moveSpeed;
     }
 
     // Update is called once per frame
@@ -54,12 +52,18 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
 
     void Move()
     {
-        Vector3 direction = transform.forward * curMovementInput.y * currentSpeed + transform.right * curMovementInput.x * currentSpeed;
-
-        direction = direction * moveSpeed;
-        direction.y = rigidbody.velocity.y;
-
-        rigidbody.velocity = direction;
+        Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        if (dash == false || CharacterManager.Instance.Player.condition.UseStamina() == false)
+        {
+            moveSpeed = minMoveSpeed;
+        }
+        else
+        {
+            moveSpeed = maxMoveSpeed;
+        }
+        dir *= moveSpeed;
+        dir.y = rb.velocity.y;
+        rb.velocity = dir;
     }
 
 
@@ -83,21 +87,18 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
         {
             curMovementInput = Vector2.zero;
         }
-
     }
-
 
     public void OnLook(InputAction.CallbackContext context)
     {
         mouseDelta = context.ReadValue<Vector2>();
     }
 
-
     public void OnJump(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
         {
-            rigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
         }
     }
 
@@ -105,18 +106,11 @@ public class PlayerController : MonoBehaviour // ÇÃ·¹ÀÌ¾î ¿òÁ÷ÀÓ, ½ºÅÈ, ¾ÆÀÌÅÛ »
     {
         if (context.phase == InputActionPhase.Performed )
         {
-            if(stamina.curValue >= 1)
-            {
-                currentSpeed = runSpeed;
-            }
-            else if(stamina.curValue <= 0)
-            {
-                currentSpeed = moveSpeed;
-            }
-        }
+            dash = true;
+}
         else if (context.phase == InputActionPhase.Canceled)
         {
-            currentSpeed = moveSpeed;
+            dash = false;
         }
     }
 

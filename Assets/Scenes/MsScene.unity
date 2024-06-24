@@ -735,7 +735,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  runSpeed: 4
+  maxMoveSpeed: 13
+  minMoveSpeed: 5
+  dash: 0
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
@@ -1763,7 +1765,7 @@ MonoBehaviour:
   curValue: 0
   startValue: 100
   maxValue: 100
-  passiveValue: 5
+  passiveValue: 30
   uiBar: {fileID: 366442058}
 --- !u!114 &906877177
 MonoBehaviour:
@@ -3494,6 +3496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameObject
       objectReference: {fileID: 0}
+    - target: {fileID: 2737593244503635988, guid: 6f9b32ce82054534599d923549ea9aec, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: 6119a5cd5cb35fd42b5e13fbab7312c8, type: 2}
     - target: {fileID: 7616281837491757915, guid: 6f9b32ce82054534599d923549ea9aec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.756685

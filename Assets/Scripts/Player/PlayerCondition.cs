@@ -19,21 +19,13 @@ public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가�
     // Update is called once per frame
     void Update()
     {
-        //hunger.Subtract(hunger.passiveValue * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.LeftShift)) // shift 눌렀을때
+        if (CharacterManager.Instance.Player.controller.dash == true)
         {
-            if (stamina.curValue > 0)        // curValue 가 0이상일때 
-            {
-                stamina.Subtract(0.4f); // stamina의 curValue 가 0.4씩 줄어든다
-            }
+            UseStamina();
         }
         else
         {
-            if (stamina.curValue < stamina.maxValue) // curValue 가 maxValue 보다 작을때
-            {
-                stamina.Add(0.3f); // stamina의 curValue 가 0.3씩 증가한다
-            }
+            stamina.Add(stamina.passiveValue * Time.deltaTime);
         }
 
         if (health.curValue == 0f)
@@ -45,7 +37,16 @@ public class PlayerCondition : MonoBehaviour //shift 눌렀을때 스태미나 감소, 가�
         {
             Run();
         }
+    }
 
+    public bool UseStamina()
+    {
+        if (stamina.curValue - 0.4f < 0f)
+        {
+            return false;
+        }
+        stamina.Subtract(0.4f);
+        return true;
     }
     public void Run()
     {
