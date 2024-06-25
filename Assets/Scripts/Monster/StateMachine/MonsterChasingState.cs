@@ -35,13 +35,13 @@ public class MonsterChasingState : MonsterBaseState
         }
 
        
-        if(IsInAttackRange())//ê³µê²© ê°??Š¥ ë²”ìœ„ ?•ˆ?´?¼ë©?  ?ƒ?ƒœ ë³?ê²?
+        if(IsInAttackRange())//°ø°İ ¹üÀ§ ³»ÀÏ ¶§
         {
             stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
             stateMachine.navMeshAgent.speed=data.idleSpeed;
             stateMachine.ChangeState(stateMachine.attackState);
         }
-        if(!IsInChasingRange())//?¼? • ?‹œê°„ì´ ì§??‚˜ë©? ì¶”ê²© ?ƒ?ƒœ ?•´? œ
+        if(!IsInChasingRange())//Ãß°İ ¹üÀ§¿¡¼­ ¹ş¾î³µÀ» ‹š
         {
             timeSinceLastUpdate += Time.deltaTime;
             if(timeSinceLastUpdate >= updateInterval)
@@ -57,13 +57,13 @@ public class MonsterChasingState : MonsterBaseState
         }
     }
 
-    public void AccelerationChasing()//ê°??†?„ë¡? ì«“ì•„?˜¤?Š” ê²½ìš°
+    public void AccelerationChasing()//Ãß°İÁßÀÏ¶§ ¼Óµµ°¡ Á¡Á¡ »¡¶óÁü
     {
-        stateMachine.navMeshAgent.speed++;
+        stateMachine.navMeshAgent.speed+=Time.deltaTime;
         stateMachine.navMeshAgent.speed= Mathf.Min(stateMachine.navMeshAgent.speed,data.chasingSpeed);
         stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
     }
-    public void CheckSightChaing()//?‹œ?„  ê°ì??ë¡? ì«“ì•„?˜¤?Š”ê²½ìš°
+    public void CheckSightChaing()//ÇÃ·¹ÀÌ¾îÀÇ ½Ã¾ß¾ÈÀÌ ¾Æ´Ò¶§ ¿òÁ÷ÀÓ
     {
         if(stateMachine.monster.canOperate==true)
         {

@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    public float viewRadius;//?ï¿½ï¿½?ï¿½ï¿½ ê¸¸ì´?
+    public float viewRadius;//¹İÁö¸§ÀÇ ±æÀÌ
     [Range(0,360)]
-    public float viewAngle; //camera?ï¿½ï¿½ fieldOfView 
+    public float viewAngle; //cameraÅ©±â
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
@@ -22,7 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     void FindVisibleTargets()
     {
-        //viewRadiousï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        //viewRadious¸¦ ¹İÁö¸§À¸·Î ºÎÃ¤²Ã 
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
         if(targetsInViewRadius.Length!=0)
@@ -36,7 +36,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//ï¿½ï¿½ï¿½Ï´ï¿½ Layerï¿½Õ¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//
                     {
                        HitRayCast(target);
                     }
@@ -44,7 +44,7 @@ public class FieldOfView : MonoBehaviour
                 }
                 else
                 {
-                    Initialize();//ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                    Initialize();//ÃÊ±âÈ­
                 }
             }
         }
@@ -61,13 +61,13 @@ public class FieldOfView : MonoBehaviour
     }
     public void HitRayCast(Transform target)
     {
-        visibleTargets.Add(target);//ë³´ê³ ?ï¿½ï¿½?ï¿½ï¿½ ì²´í¬
+        visibleTargets.Add(target);
 
         if(target.TryGetComponent(out ISightCheck sights))
         {
             sightTargets.Add(sights);
 
-            //ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
+            //Áßº¹ Á¦°Å
             sightTargets=sightTargets.Distinct().ToList();
             visibleTargets=visibleTargets.Distinct().ToList();
 

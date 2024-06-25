@@ -11,6 +11,9 @@ public class MonsterBaseState : IState
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
     protected IDamageable targetInfo;
+    public float viewRadius=20;
+     public float viewAngle=100;
+
 
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
@@ -65,11 +68,28 @@ public class MonsterBaseState : IState
     {
         Transform transform= stateMachine.monster.transform;
         //RaycastHit hit;
-        Collider[] test =Physics.OverlapSphere(transform.position,stateMachine.monster.data.PlayerChasingRange,1<<6);
+        Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,1<<6);
 
-        if(test!=null)
+        if(targetsInViewRadius.Length!=0)
         {
-            return true;
+
+            for (int i = 0; i < targetsInViewRadius.Length; i++)
+            {
+                Transform target = targetsInViewRadius[i].transform;
+                Vector3 dirToTarget = (target.position - transform.position).normalized;
+                
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                {
+                    float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget,~(1<<6)))
+                    {
+                       return true;
+                    }
+                   
+                }
+               
+            }
         }
         // if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
         // {

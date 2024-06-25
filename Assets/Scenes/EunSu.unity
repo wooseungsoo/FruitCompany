@@ -1205,7 +1205,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6896011178433722759, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33717,7 +33717,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!136 &1349682096
 CapsuleCollider:
@@ -33750,14 +33750,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1349682090}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.1, y: 0.213, z: 40.7}
+  m_LocalRotation: {x: -0, y: -0.83085716, z: -0, w: 0.5564858}
+  m_LocalPosition: {x: 23.1, y: 0.21300006, z: 40.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 137217737}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -112.374, z: 0}
 --- !u!114 &1349682098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49891,9 +49891,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 622748645337401457, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28
+      objectReference: {fileID: 0}
+    - target: {fileID: 622748645337401457, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 622748645337401457, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -104.3
+      objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.8
+      value: 31.4
       objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -49901,7 +49913,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45.6
+      value: 12.1
       objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49934,6 +49946,10 @@ PrefabInstance:
     - target: {fileID: 6047916013257787759, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_Name
       value: Monster_Scarecrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047916013257787759, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
