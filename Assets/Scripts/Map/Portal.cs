@@ -31,11 +31,7 @@ public class Portal : MonoBehaviour
         player.transform.position = spawnPosition;
 
         // 카메라가 플레이어를 따라가도록 설정
-        if (mainCamera != null)
-        {
-            mainCamera.transform.position = spawnPosition + new Vector3(0, 2, -5); // 카메라 위치 조정
-            mainCamera.transform.LookAt(player.transform); // 카메라가 플레이어를 향하도록 설정
-        }
+        
     }
     private void SavePlayerInfo()
     {

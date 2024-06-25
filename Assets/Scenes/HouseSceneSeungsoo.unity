@@ -48411,7 +48411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: SampleScene Seungsoo
-  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnPosition: {x: 148, y: 16, z: 140}
 --- !u!1001 &1921855130
 PrefabInstance:
   m_ObjectHideFlags: 0
