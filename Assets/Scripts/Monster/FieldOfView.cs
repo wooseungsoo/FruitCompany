@@ -79,7 +79,7 @@ public class FieldOfView : MonoBehaviour
             sightTargets=sightTargets.Distinct().ToList();
             visibleTargets=visibleTargets.Distinct().ToList();
 
-            Debug.Log(sightTargets.Count);
+           // Debug.Log(sightTargets.Count);
             for(int j=0; j<sightTargets.Count; j++)
             {
                 sightTargets[j].InSight();

@@ -1203,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster_Skeletone
       objectReference: {fileID: 0}
+    - target: {fileID: 6896011178433722759, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
