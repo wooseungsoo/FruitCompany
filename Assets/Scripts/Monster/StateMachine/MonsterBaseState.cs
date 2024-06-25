@@ -64,22 +64,28 @@ public class MonsterBaseState : IState
     protected bool IsInChasingRange()
     {
         Transform transform= stateMachine.monster.transform;
+        //RaycastHit hit;
+        Collider[] test =Physics.OverlapSphere(transform.position,stateMachine.monster.data.PlayerChasingRange,1<<6);
 
-        RaycastHit hit;
-       
-        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,10))
+        if(test!=null)
         {
-            if((1<<hit.transform.gameObject.layer)==1<<6)
-            {
-                return true;
-            }
+            return true;
         }
+        // if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
+        // {
+        //     // if((1<<hit.transform.gameObject.layer)==1<<6)
+        //     // {
+        //     //     return true;
+        //     // }
+        //     Debug.Log(hit.transform.gameObject.name);
+        //      if(hit.transform.gameObject.CompareTag("Player"))
+        //     {
+        //         return true;
+        //     }
+        // }
         
 
-         // if(hit.transform.gameObject.CompareTag("Player"))
-            // {
-            //     return true;
-            // }
+        
         return false;
     }
     protected bool IsInAttackRange()

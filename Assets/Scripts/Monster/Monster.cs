@@ -52,11 +52,13 @@ public class Monster : MonoBehaviour
     {
 
     }
-    //      void OnDrawGizmos()
-    //    {
-    //         Transform transform= stateMachine.monster.transform;
 
-    //         Gizmos.DrawRay(transform.position,transform.forward*20);
-    //         Gizmos.DrawWireCube (transform.position + transform.forward *20,transform.lossyScale*3 );
-    //    }
+
+    void OnDrawGizmos()
+    {
+        Transform transform= stateMachine.monster.transform;
+
+        Gizmos.DrawRay(transform.position,transform.forward*20);
+        Gizmos.DrawWireCube (transform.position + transform.forward *20,transform.lossyScale*3 );
+    }
 }

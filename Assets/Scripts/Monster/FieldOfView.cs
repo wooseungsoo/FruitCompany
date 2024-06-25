@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    public float viewRadius;//?‹œ?„  ê¸¸ì´?
+    public float viewRadius;//?ï¿½ï¿½?ï¿½ï¿½ ê¸¸ì´?
     [Range(0,360)]
-    public float viewAngle; //camera?˜ fieldOfView 
+    public float viewAngle; //camera?ï¿½ï¿½ fieldOfView 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
@@ -22,7 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     void FindVisibleTargets()
     {
-        //viewRadious¸¦ ¹İÁö¸§À¸·Î ºÎÃ¤²Ã »ı¼º
+        //viewRadiousï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
         if(targetsInViewRadius.Length!=0)
@@ -36,7 +36,7 @@ public class FieldOfView : MonoBehaviour
                 {
                     float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//¿øÇÏ´Â Layer¾Õ¿¡ ´Ù¸¥ ¿ÀºêÁ§Æ®°¡ ¾ø´Ù¸é
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//ï¿½ï¿½ï¿½Ï´ï¿½ Layerï¿½Õ¿ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½
                     {
                        HitRayCast(target);
                     }
@@ -44,7 +44,7 @@ public class FieldOfView : MonoBehaviour
                 }
                 else
                 {
-                    Initialize();//½Ã¼±¿¡¼­ ³ª°¡Áü
+                    Initialize();//ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 }
             }
         }
@@ -61,13 +61,13 @@ public class FieldOfView : MonoBehaviour
     }
     public void HitRayCast(Transform target)
     {
-        visibleTargets.Add(target);//ë³´ê³ ?ˆ?Œ ì²´í¬
+        visibleTargets.Add(target);//ë³´ê³ ?ï¿½ï¿½?ï¿½ï¿½ ì²´í¬
 
         if(target.TryGetComponent(out ISightCheck sights))
         {
             sightTargets.Add(sights);
 
-            //Áßº¹ Á¦°Å
+            //ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
             sightTargets=sightTargets.Distinct().ToList();
             visibleTargets=visibleTargets.Distinct().ToList();
 
