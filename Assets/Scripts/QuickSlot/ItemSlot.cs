@@ -1,11 +1,12 @@
-﻿using TMPro;
+using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class ItemSlot
+public class ItemSlot : MonoBehaviour
 {
     public ItemData item;
 
-    public UIQuickSlot inventory;
+    public UIInventory inventory;
     public Button button;
     public Image icon;
     public TextMeshProUGUI quatityText;
@@ -15,6 +16,10 @@ public class ItemSlot
     public bool equipped;
     public int quantity;
 
+    private void Awake()
+    {
+        outline = GetComponent<Outline>();
+    }
 
     private void OnEnable()
     {
@@ -36,12 +41,8 @@ public class ItemSlot
     public void Clear()
     {
         item = null;
-        icon.gameObject.SetActive(false);
+        icon.gameObject.SetActive(true);
         quatityText.text = string.Empty;
     }
 
-    public void OnClickButton()
-    {
-        inventory.SelectItem(index);
-    }
 }

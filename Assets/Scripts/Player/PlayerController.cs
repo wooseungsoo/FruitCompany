@@ -27,7 +27,35 @@ public class PlayerController : MonoBehaviour // �÷��̾� �����
     public Action inventory;
     private Rigidbody rb;
 
-    private void Awake()
+    [HideInInspector]
+    public bool canLook = true;
+
+    private void LateUpdate()
+    {
+        if (canLook)
+        {
+            CameraLook();
+        }
+    }
+
+    public void OnInventoryButton(InputAction.CallbackContext callbackContext)
+    {
+        if (callbackContext.phase == InputActionPhase.Started)
+        {
+            inventory?.Invoke();
+            ToggleCursor();
+        }
+    }
+
+    void ToggleCursor()
+    {
+        bool toggle = Cursor.lockState == CursorLockMode.Locked;
+        Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
+        canLook = !toggle;
+    }
+
+
+private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
@@ -42,11 +70,6 @@ public class PlayerController : MonoBehaviour // �÷��̾� �����
     void FixedUpdate()
     {
         Move();
-    }
-
-    private void LateUpdate()
-    {
-        CameraLook();
     }
 
     void Move()
