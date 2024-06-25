@@ -24,7 +24,7 @@ public class MonsterStateMachine : StateMachine
     {
         this.monster =_monster;
 
-        //target= GameObject.FindGameObjectWithTag("Player");
+        target= GameObject.FindGameObjectWithTag("Player");
 
         idleState = new MonsterIdleState(this);
         chasingState = new MonsterChasingState(this);

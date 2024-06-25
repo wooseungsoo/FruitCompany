@@ -71,7 +71,6 @@ public class MonsterBaseState : IState
         {
             if(hit.transform.gameObject.CompareTag("Player"))
             {
-                stateMachine.target=hit.transform.gameObject;
                 return true;
             }
         }

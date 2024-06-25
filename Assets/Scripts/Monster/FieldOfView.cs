@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 public class FieldOfView : MonoBehaviour
 {
-    public float viewRadius;//ì‹œì„  ê¸¸ì´?
+    public float viewRadius;//?‹œ?„  ê¸¸ì´?
     [Range(0,360)]
-    public float viewAngle; //cameraì˜ fieldOfView 
+    public float viewAngle; //camera?˜ fieldOfView 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
@@ -27,7 +28,7 @@ public class FieldOfView : MonoBehaviour
     void FindVisibleTargets()
     {
         
-        //viewRadiousë¥¼ ë°˜ì§€ë¦„ìœ¼ë¡œ í•œ ì˜ì—­ ë‚´ì— targetlayer ì½œë¼ì´ë”ë¥¼ ê°€ì ¸ì˜´
+        //viewRadiousë¥? ë°˜ì??ë¦„ìœ¼ë¡? ?•œ ?˜?—­ ?‚´?— targetlayer ì½œë¼?´?”ë¥? ê°?? ¸?˜´
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
         if(targetsInViewRadius.Length!=0)
@@ -37,25 +38,15 @@ public class FieldOfView : MonoBehaviour
                 Transform target = targetsInViewRadius[i].transform;
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 
-                // í”Œë ˆì´ì–´ ì‹œì•¼ ë‚´ì— ìˆë‹¤ë©´
+                // ?”Œ? ˆ?´?–´ ?‹œ?•¼ ?‚´?— ?ˆ?‹¤ë©?
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                 {
                     float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//ì‹œì•¼ ë²”ìœ„ì— ë‹¤ë¥¸ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ë‹¤ë©´
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//?‹œ?•¼ ë²”ìœ„?— ?‹¤ë¥? ?˜¤ë¸Œì ?Š¸ê°? ?—†?‹¤ë©?
                     {
                         //Debug.Log(targetsInViewRadius[0].gameObject.name);
-                        visibleTargets.Add(target);//ë³´ê³ ìˆìŒ ì²´í¬
-
-                        if(target.TryGetComponent(out ISightCheck sights))
-                        {
-                            sightTargets.Add(sights);
-                            for(int j=0; j<sightTargets.Count; j++)
-                            {
-                                sightTargets[j].InSight();
-                            }
-
-                        }
+                       HitRayCast(target);
                     }
                    
                 }
@@ -75,6 +66,26 @@ public class FieldOfView : MonoBehaviour
         }
         visibleTargets.Clear();
         sightTargets.Clear();
+    }
+    public void HitRayCast(Transform target)
+    {
+        visibleTargets.Add(target);//ë³´ê³ ?ˆ?Œ ì²´í¬
+
+        if(target.TryGetComponent(out ISightCheck sights))
+        {
+            sightTargets.Add(sights);
+
+            //Áßº¹ Á¦°Å
+            sightTargets=sightTargets.Distinct().ToList();
+            visibleTargets=visibleTargets.Distinct().ToList();
+
+            Debug.Log(sightTargets.Count);
+            for(int j=0; j<sightTargets.Count; j++)
+            {
+                sightTargets[j].InSight();
+            }
+
+        }
     }
     public Vector3 DirFromAngle(float angleDegrees, bool angleIsGlobal)
     {
