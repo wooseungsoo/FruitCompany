@@ -16,14 +16,8 @@ public class UIInventory : MonoBehaviour
     [Header("Selected Item")]
     private ItemSlot selectedItem;
     private int selectedItemIndex;
-    //public TextMeshProUGUI selectedItemName;
-    //public TextMeshProUGUI selectedItemDescription;
-    //public TextMeshProUGUI selectedItemStatName;
-    //public TextMeshProUGUI selectedItemStatValue;
-    //public GameObject useButton;
-    //public GameObject equipButton;
-    //public GameObject unEquipButton;
-    public GameObject dropButton;
+
+    //public GameObject dropButton;
 
     private int curEquipIndex;
 
@@ -39,7 +33,7 @@ public class UIInventory : MonoBehaviour
         controller.inventory += Toggle;
         CharacterManager.Instance.Player.addItem += AddItem;
 
-        inventoryWindow.SetActive(false);
+        inventoryWindow.SetActive(true);
         slots = new ItemSlot[slotPanel.childCount];
 
 
@@ -58,7 +52,7 @@ public class UIInventory : MonoBehaviour
     {
         if (inventoryWindow.activeInHierarchy)
         {
-            inventoryWindow.SetActive(false);
+            inventoryWindow.SetActive(true);
         }
         else
         {
@@ -152,23 +146,17 @@ public class UIInventory : MonoBehaviour
     {
         selectedItem = null;
 
-        //selectedItemName.text = string.Empty;
-        //selectedItemDescription.text = string.Empty;
-        //selectedItemStatName.text = string.Empty;
-        //selectedItemStatValue.text = string.Empty;
-
-        //useButton.SetActive(false);
-        //equipButton.SetActive(false);
-        //unEquipButton.SetActive(false);
-        dropButton.SetActive(false);
+        // dropButton.SetActive(false);
     }
 
 
 
-    public void OnDropButton()
+    public void OnDrop()
     {
         ThrowItem(selectedItem.item);
-
+        selectedItem.Clear();
+        ClearSelectedItemWindow();
+        UpdateUI();
     }
 
 

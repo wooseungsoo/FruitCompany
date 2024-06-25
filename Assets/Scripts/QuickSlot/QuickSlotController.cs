@@ -20,6 +20,7 @@ public class QuickSlotController : MonoBehaviour
         {
             AddItemToSlot(0);
             Debug.Log("1¹ø ½½·Ô");
+            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {

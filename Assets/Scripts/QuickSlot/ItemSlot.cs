@@ -21,10 +21,10 @@ public class ItemSlot : MonoBehaviour
         outline = GetComponent<Outline>();
     }
 
-    private void OnEnable()
-    {
-        outline.enabled = equipped;
-    }
+    //private void OnEnable()
+    //{
+    //    outline.enabled = equipped;
+    //}
 
     public void Set()
     {
@@ -34,7 +34,7 @@ public class ItemSlot : MonoBehaviour
 
         if (outline != null)
         {
-            outline.enabled = equipped;
+            equipped = true;
         }
     }
 
