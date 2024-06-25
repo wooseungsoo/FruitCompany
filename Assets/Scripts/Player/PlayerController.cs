@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerController : MonoBehaviour // �÷��̾� ������, ����, ������ ���, ����, �κ��丮
 {
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviour // �÷��̾� �����
     public Action inventory;
     private Rigidbody rb;
 
+    UIInventory uIInventory;
+
     [HideInInspector]
     public bool canLook = true;
 
@@ -36,6 +39,14 @@ public class PlayerController : MonoBehaviour // �÷��̾� �����
         {
             CameraLook();
         }
+    }
+    public void OnDropKey(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            uIInventory.OnDrop();
+        }
+        else return;
     }
 
     public void OnInventoryButton(InputAction.CallbackContext callbackContext)
