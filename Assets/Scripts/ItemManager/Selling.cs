@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Selling : MonoBehaviour
@@ -8,6 +9,12 @@ public class Selling : MonoBehaviour
     /// NPC 판매메뉴 등록 변수
     /// </summary>
     public GameObject SellMenu;
+
+
+    public List<GameObject> SellItems;
+
+    public List<GameObject> SoldOutList;
+
 
 
     // Start is called before the first frame update
