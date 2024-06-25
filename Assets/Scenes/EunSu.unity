@@ -1161,7 +1161,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 30028145848491840, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.7131004
+      value: 29.176
       objectReference: {fileID: 0}
     - target: {fileID: 30028145848491840, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1169,7 +1169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 30028145848491840, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.227829
+      value: 15.2
       objectReference: {fileID: 0}
     - target: {fileID: 30028145848491840, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1199,13 +1199,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2045331485001034413, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4975726307287182225, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6896011178433722759, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_Name
       value: Monster_Skeletone
       objectReference: {fileID: 0}
     - target: {fileID: 6896011178433722759, guid: f1eb321d1a8845c468860dcb58fd5009, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5560,8 +5568,8 @@ Transform:
   m_GameObject: {fileID: 215398135}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 30.8, y: 2.0582, z: 13.4044}
-  m_LocalScale: {x: 82.7982, y: 18.094, z: 1}
+  m_LocalPosition: {x: 30.8, y: 2.0582, z: -2.6494}
+  m_LocalScale: {x: 114.90734, y: 18.094, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -33585,6 +33593,7 @@ MonoBehaviour:
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.5
+  canLook: 1
 --- !u!114 &1349682093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49785,13 +49794,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1650389092185689794, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837441998713388658, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.144775
       objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000038146973
+      value: 1.878
       objectReference: {fileID: 0}
     - target: {fileID: 4763450488474173847, guid: a5a978328919eff4a911b076deb91cc4, type: 3}
       propertyPath: m_LocalPosition.z

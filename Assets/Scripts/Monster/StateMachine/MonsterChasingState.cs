@@ -34,6 +34,13 @@ public class MonsterChasingState : MonsterBaseState
             stateMachine.navMeshAgent.SetDestination(stateMachine.target.transform.position);
         }
 
+       
+        if(IsInAttackRange())//ê³µê²© ê°??Š¥ ë²”ìœ„ ?•ˆ?´?¼ë©?  ?ƒ?ƒœ ë³?ê²?
+        {
+            stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
+            stateMachine.navMeshAgent.speed=data.idleSpeed;
+            stateMachine.ChangeState(stateMachine.attackState);
+        }
         if(!IsInChasingRange())//?¼? • ?‹œê°„ì´ ì§??‚˜ë©? ì¶”ê²© ?ƒ?ƒœ ?•´? œ
         {
             timeSinceLastUpdate += Time.deltaTime;
@@ -43,12 +50,6 @@ public class MonsterChasingState : MonsterBaseState
                 stateMachine.ChangeState(stateMachine.idleState);
             }
             return;
-        }
-        else if(IsInAttackRange())//ê³µê²© ê°??Š¥ ë²”ìœ„ ?•ˆ?´?¼ë©?  ?ƒ?ƒœ ë³?ê²?
-        {
-            stateMachine.monster.navMeshAgent.velocity=Vector3.zero;
-            stateMachine.navMeshAgent.speed=data.idleSpeed;
-            stateMachine.ChangeState(stateMachine.attackState);
         }
         else
         {

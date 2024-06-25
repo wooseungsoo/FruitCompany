@@ -20,4 +20,4 @@ MonoBehaviour:
   randomWanderDealy: 5
   chasingCount: 5
   <PlayerChasingRange>k__BackingField: 20
-  <AttackRange>k__BackingField: 3
+  <AttackRange>k__BackingField: 2.5

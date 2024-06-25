@@ -15,11 +15,6 @@ public class FieldOfView : MonoBehaviour
     public List<Transform>visibleTargets =new List<Transform>();
     public List<ISightCheck> sightTargets =new List<ISightCheck>();
 
-
-    // void Start()
-    // {
-    //     //InvokeRepeating("FindVisibleTargets",0f,0.3f);
-    // }
     private void Update() 
     {
         FindVisibleTargets();
@@ -27,8 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     void FindVisibleTargets()
     {
-        
-        //viewRadiousë¥? ë°˜ì??ë¦„ìœ¼ë¡? ?•œ ?˜?—­ ?‚´?— targetlayer ì½œë¼?´?”ë¥? ê°?? ¸?˜´
+        //viewRadious¸¦ ¹İÁö¸§À¸·Î ºÎÃ¤²Ã »ı¼º
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
         if(targetsInViewRadius.Length!=0)
@@ -38,21 +32,19 @@ public class FieldOfView : MonoBehaviour
                 Transform target = targetsInViewRadius[i].transform;
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 
-                // ?”Œ? ˆ?´?–´ ?‹œ?•¼ ?‚´?— ?ˆ?‹¤ë©?
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                 {
                     float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//?‹œ?•¼ ë²”ìœ„?— ?‹¤ë¥? ?˜¤ë¸Œì ?Š¸ê°? ?—†?‹¤ë©?
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//¿øÇÏ´Â Layer¾Õ¿¡ ´Ù¸¥ ¿ÀºêÁ§Æ®°¡ ¾ø´Ù¸é
                     {
-                        //Debug.Log(targetsInViewRadius[0].gameObject.name);
                        HitRayCast(target);
                     }
                    
                 }
                 else
                 {
-                    Initialize();
+                    Initialize();//½Ã¼±¿¡¼­ ³ª°¡Áü
                 }
             }
         }

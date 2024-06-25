@@ -67,20 +67,38 @@ public class MonsterBaseState : IState
 
         RaycastHit hit;
        
-        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
+        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,10))
         {
-            if(hit.transform.gameObject.CompareTag("Player"))
+            if((1<<hit.transform.gameObject.layer)==1<<6)
             {
                 return true;
             }
         }
         
+
+         // if(hit.transform.gameObject.CompareTag("Player"))
+            // {
+            //     return true;
+            // }
         return false;
     }
     protected bool IsInAttackRange()
     {
-        float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+        //Debug.Log(Vector3.Distance(stateMachine.target.transform.position,stateMachine.monster.transform.position));
+        if(Vector3.Distance(stateMachine.target.transform.position,stateMachine.monster.transform.position)<=stateMachine.monster.data.AttackRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
 
-        return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
+        }
+        // float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+        // Debug.Log("**"+stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange);
+        // Debug.Log("playerDistanceSqr"+playerDistanceSqr);
+       // return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
+
+
     }
 }

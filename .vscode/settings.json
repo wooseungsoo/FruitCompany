@@ -51,5 +51,7 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "FruitCompany.sln"
+    "dotnet.defaultSolution": "FruitCompany.sln",
+    "files.autoGuessEncoding": true,
+    "files.encoding": "euckr"
 }
