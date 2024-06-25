@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEditor.Purchasing;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,7 +8,6 @@ using static UnityEditor.Progress;
 public class QuickSlotController : MonoBehaviour
 {
     public Button[] slotButtons;
-    public ItemSlot[] slots;
 
     public void Update()
     {

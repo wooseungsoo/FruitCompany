@@ -2,10 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class UIQuickSlot : MonoBehaviour
+public class UIInventory : MonoBehaviour
 {
     public ItemSlot[] slots;
+
 
     public GameObject inventoryWindow;
     public Transform slotPanel;
@@ -14,6 +16,16 @@ public class UIQuickSlot : MonoBehaviour
     [Header("Selected Item")]
     private ItemSlot selectedItem;
     private int selectedItemIndex;
+    //public TextMeshProUGUI selectedItemName;
+    //public TextMeshProUGUI selectedItemDescription;
+    //public TextMeshProUGUI selectedItemStatName;
+    //public TextMeshProUGUI selectedItemStatValue;
+    //public GameObject useButton;
+    //public GameObject equipButton;
+    //public GameObject unEquipButton;
+    public GameObject dropButton;
+
+    private int curEquipIndex;
 
     private PlayerController controller;
     private PlayerCondition condition;
@@ -27,15 +39,17 @@ public class UIQuickSlot : MonoBehaviour
         controller.inventory += Toggle;
         CharacterManager.Instance.Player.addItem += AddItem;
 
+        inventoryWindow.SetActive(false);
         slots = new ItemSlot[slotPanel.childCount];
 
-        //for (int i = 0; i < slots.Length; i++)
-        //{
-        //    slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
-        //    slots[i].index = i;
-        //    slots[i].inventory = this;
-        //    slots[i].Clear();
-        //}
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slots[i].index = i;
+            slots[i].inventory = this;
+            slots[i].Clear();
+        }
 
         ClearSelectedItemWindow();
     }
@@ -44,7 +58,7 @@ public class UIQuickSlot : MonoBehaviour
     {
         if (inventoryWindow.activeInHierarchy)
         {
-            inventoryWindow.SetActive(true);
+            inventoryWindow.SetActive(false);
         }
         else
         {
@@ -73,16 +87,16 @@ public class UIQuickSlot : MonoBehaviour
             }
         }
 
-        //ItemSlot emptySlot = GetEmptySlot();
+        ItemSlot emptySlot = GetEmptySlot();
 
-        //if (emptySlot != null)
-        //{
-        //    emptySlot.item = data;
-        //    emptySlot.quantity = 1;
-        //    UpdateUI();
-        //    CharacterManager.Instance.Player.itemData = null;
-        //    return;
-        //}
+        if (emptySlot != null)
+        {
+            emptySlot.item = data;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            CharacterManager.Instance.Player.itemData = null;
+            return;
+        }
 
         ThrowItem(data);
         CharacterManager.Instance.Player.itemData = null;
@@ -124,31 +138,39 @@ public class UIQuickSlot : MonoBehaviour
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            //if (slots[i].item == null)
-            //{
-            //    return slots[i];
-            //}
+            if (slots[i].item == null)
+            {
+                return slots[i];
+            }
         }
         return null;
     }
 
-    public void SelectItem(int index)
-    {
-        if (slots[index].item == null) return;
 
-        selectedItem = slots[index];
-        selectedItemIndex = index;
-    }
 
     void ClearSelectedItemWindow()
     {
         selectedItem = null;
+
+        //selectedItemName.text = string.Empty;
+        //selectedItemDescription.text = string.Empty;
+        //selectedItemStatName.text = string.Empty;
+        //selectedItemStatValue.text = string.Empty;
+
+        //useButton.SetActive(false);
+        //equipButton.SetActive(false);
+        //unEquipButton.SetActive(false);
+        dropButton.SetActive(false);
     }
+
+
 
     public void OnDropButton()
     {
         ThrowItem(selectedItem.item);
+
     }
+
 
     public bool HasItem(ItemData item, int quantity)
     {
