@@ -8321,7 +8321,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
-  runSpeed: 0
+  maxMoveSpeed: 0
+  minMoveSpeed: 0
+  dash: 0
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
@@ -8342,6 +8344,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f9234cfaf4ef3408edf81e62b667a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  condition: {fileID: 0}
+  itemData: {fileID: 0}
+  dropPosition: {fileID: 0}
 --- !u!114 &374680138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8444,6 +8450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63c778c2160a464d83bdc723d4008f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiCondition: {fileID: 0}
 --- !u!4 &374836003 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8250113047921840432, guid: b76f846b3379607468a593969b575654, type: 3}
@@ -48365,7 +48372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: SampleScene Seungsoo
-  spawnPosition: {x: 0, y: 0, z: 0}
+  spawnPosition: {x: 148, y: 16, z: 140}
 --- !u!1001 &1921855130
 PrefabInstance:
   m_ObjectHideFlags: 0
