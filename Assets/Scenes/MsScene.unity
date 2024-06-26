@@ -613,6 +613,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   condition: {fileID: 0}
   itemData: {fileID: 0}
+  restartPosition: {x: 0, y: 0, z: 0}
   dropPosition: {fileID: 1827766848}
 --- !u!114 &374680138
 MonoBehaviour:

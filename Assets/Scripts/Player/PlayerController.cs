@@ -75,7 +75,7 @@ private void Awake()
     void Move()
     {
         Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        if (dash == false || CharacterManager.Instance.Player.condition.UseStamina() == false)
+        if (dash == false || Player.Instance.condition.UseStamina() == false)
         {
             moveSpeed = minMoveSpeed;
         }

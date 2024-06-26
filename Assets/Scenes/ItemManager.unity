@@ -4626,6 +4626,7 @@ MonoBehaviour:
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.1
+  canLook: 1
 --- !u!114 &374680137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4641,6 +4642,7 @@ MonoBehaviour:
   controller: {fileID: 0}
   condition: {fileID: 0}
   itemData: {fileID: 0}
+  restartPosition: {x: 0, y: 0, z: 0}
   dropPosition: {fileID: 0}
 --- !u!114 &374680138
 MonoBehaviour:

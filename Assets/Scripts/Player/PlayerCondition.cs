@@ -18,7 +18,7 @@ public class PlayerCondition : MonoBehaviour,IDamageable //shift �����
     // Update is called once per frame
     void Update()
     {
-        if (CharacterManager.Instance.Player.controller.dash == true)
+        if (Player.Instance.controller.dash == true)
         {
             UseStamina();
         }
