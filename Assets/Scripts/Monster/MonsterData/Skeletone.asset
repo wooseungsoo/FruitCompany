@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Skeletone
   idleSpeed: 10
-  chasingSpeed: 40
+  chasingSpeed: 10
   attackDamage: 50
   attackDealy: 0.1
   randomWanderDealy: 5
