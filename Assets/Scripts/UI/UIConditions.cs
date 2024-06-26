@@ -6,12 +6,12 @@ public class UIConditions : MonoBehaviour
 {
 
     public Conditions health;
-    public Conditions hunger;
+   // public Conditions hunger;
     public Conditions stamina;
 
     // Start is called before the first frame update
     void Start()
     {
-        CharacterManager.Instance.Player.condition.uiCondition = this;
+        Player.Instance.condition.uiCondition = this;
     }
 }
