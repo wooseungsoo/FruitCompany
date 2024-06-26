@@ -41,7 +41,7 @@ public class ItemSlot : MonoBehaviour
     public void Clear()
     {
         item = null;
-        icon.gameObject.SetActive(true);
+        icon.gameObject.SetActive(false);
         quatityText.text = string.Empty;
     }
 

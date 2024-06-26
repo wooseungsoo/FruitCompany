@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c66b5763621e3f46866c07ce13a8e07, type: 3}
-  m_Name: Item_Rock
+  m_Name: Item_Peanut
   m_EditorClassIdentifier: 
-  displayName: "\uB3CC"
+  displayName: "\uB545\uCF69"
   description: "[E] \uC90D\uAE30"
-  itemType: 1
-  itemID: 1
-  icon: {fileID: 21300000, guid: d4b87fa4adc3b064189e130e9f3cd6ab, type: 3}
-  dropPrefab: {fileID: 5501201474814417104, guid: b984817ab163a254a968f90205bf4c26, type: 3}
+  Type: -1
+  icon: {fileID: 21300000, guid: 52efc83c6eb836a459e3eb61a6170624, type: 3}
+  dropPrefab: {fileID: 1329430274803916, guid: 8c8c7d8f829a2d24ebe78eddb5eaff57, type: 3}
   canStack: 0
   maxStackAmount: 1
