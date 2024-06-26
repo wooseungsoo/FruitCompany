@@ -154,9 +154,8 @@ public class UIInventory : MonoBehaviour
 
     public void OnDrop()
     {
-        ThrowItem(slots[0].item);
-        slots[0].Clear();
-
+        ThrowItem(slots[controller.selectSlot].item);
+        slots[controller.selectSlot].Clear();
         ClearSelectedItemWindow();
         UpdateUI();
     }

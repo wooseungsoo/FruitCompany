@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour // �÷��̾� �����
     private Rigidbody rb;
 
     public UIInventory uIInventory;
+    public int selectSlot;
 
     [HideInInspector]
     public bool canLook = true;
