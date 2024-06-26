@@ -14,12 +14,13 @@ public class QuickSlotController : MonoBehaviour
         InputNumber();
     }
 
-    void InputNumber() // 슬롯이 null 이면 ItemData를 불러와서 적용을 시킨다.
+    void InputNumber()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             AddItemToSlot(0);
             Debug.Log("1번 슬롯");
+            
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -58,5 +59,6 @@ public class QuickSlotController : MonoBehaviour
                 slotAnimation.AnimationItemSlot();
             }
         }
+        CharacterManager.Instance.Player.controller.selectSlot = slotCount;
     }
 }

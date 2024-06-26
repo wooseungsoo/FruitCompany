@@ -50,7 +50,7 @@ public class PlayerCondition : MonoBehaviour,IDamageable //shift �����
     }
     public void Run()
     {
-        Debug.Log("��ħ");
+        Debug.Log("tired");
     }
 
     public void Die()

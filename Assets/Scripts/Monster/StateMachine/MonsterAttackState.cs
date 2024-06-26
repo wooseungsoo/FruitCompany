@@ -13,7 +13,7 @@ public class MonsterAttackState : MonsterBaseState
 
     public override void Enter()
     {
-        //Debug.Log("공격");
+        Debug.Log("공격");
         timeSinceLastUpdate=0;
         targetInfo=stateMachine.target.GetComponent<IDamageable>();
         StartAnimation(stateMachine.monster.AnimationData.AttackParameterHash);
@@ -27,7 +27,6 @@ public class MonsterAttackState : MonsterBaseState
     {
         timeSinceLastUpdate += Time.deltaTime;
         base.Update();
-
         if (IsInAttackRange())
         {
             if(timeSinceLastUpdate >= updateInterval)
@@ -39,7 +38,7 @@ public class MonsterAttackState : MonsterBaseState
         }
         else
         {
-            if (!IsInChasingRange())
+            if (!IsInAttackRange())
             {
                 stateMachine.ChangeState(stateMachine.chasingState);
                 return;

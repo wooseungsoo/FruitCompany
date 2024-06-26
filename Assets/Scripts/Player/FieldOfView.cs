@@ -6,20 +6,15 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    public float viewRadius;//?‹œ?„  ê¸¸ì´?
+    public float viewRadius;//¹İÁö¸§ÀÇ ±æÀÌ
     [Range(0,360)]
-    public float viewAngle; //camera?˜ fieldOfView 
+    public float viewAngle; //cameraÅ©±â
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
     public List<Transform>visibleTargets =new List<Transform>();
     public List<ISightCheck> sightTargets =new List<ISightCheck>();
 
-
-    // void Start()
-    // {
-    //     //InvokeRepeating("FindVisibleTargets",0f,0.3f);
-    // }
     private void Update() 
     {
         FindVisibleTargets();
@@ -27,8 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     void FindVisibleTargets()
     {
-        
-        //viewRadiousë¥? ë°˜ì??ë¦„ìœ¼ë¡? ?•œ ?˜?—­ ?‚´?— targetlayer ì½œë¼?´?”ë¥? ê°?? ¸?˜´
+        //viewRadious¸¦ ¹İÁö¸§À¸·Î ºÎÃ¤²Ã 
         Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,targetMask);
 
         if(targetsInViewRadius.Length!=0)
@@ -38,21 +32,19 @@ public class FieldOfView : MonoBehaviour
                 Transform target = targetsInViewRadius[i].transform;
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 
-                // ?”Œ? ˆ?´?–´ ?‹œ?•¼ ?‚´?— ?ˆ?‹¤ë©?
                 if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
                 {
                     float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
 
-                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//?‹œ?•¼ ë²”ìœ„?— ?‹¤ë¥? ?˜¤ë¸Œì ?Š¸ê°? ?—†?‹¤ë©?
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))//
                     {
-                        //Debug.Log(targetsInViewRadius[0].gameObject.name);
                        HitRayCast(target);
                     }
                    
                 }
                 else
                 {
-                    Initialize();
+                    Initialize();//ÃÊ±âÈ­
                 }
             }
         }
@@ -69,7 +61,7 @@ public class FieldOfView : MonoBehaviour
     }
     public void HitRayCast(Transform target)
     {
-        visibleTargets.Add(target);//ë³´ê³ ?ˆ?Œ ì²´í¬
+        visibleTargets.Add(target);
 
         if(target.TryGetComponent(out ISightCheck sights))
         {

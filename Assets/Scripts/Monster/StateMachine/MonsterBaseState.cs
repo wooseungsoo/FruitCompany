@@ -11,6 +11,9 @@ public class MonsterBaseState : IState
     protected MonsterStateMachine stateMachine;
     protected readonly MonsterSO data;
     protected IDamageable targetInfo;
+    public float viewRadius=20;
+     public float viewAngle=100;
+
 
     
     public MonsterBaseState(MonsterStateMachine monsterStateMachine)
@@ -64,23 +67,64 @@ public class MonsterBaseState : IState
     protected bool IsInChasingRange()
     {
         Transform transform= stateMachine.monster.transform;
+        //RaycastHit hit;
+        Collider[] targetsInViewRadius=Physics.OverlapSphere(transform.position,viewRadius,1<<6);
 
-        RaycastHit hit;
-       
-        if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
+        if(targetsInViewRadius.Length!=0)
         {
-            if(hit.transform.gameObject.CompareTag("Player"))
+
+            for (int i = 0; i < targetsInViewRadius.Length; i++)
             {
-                return true;
+                Transform target = targetsInViewRadius[i].transform;
+                Vector3 dirToTarget = (target.position - transform.position).normalized;
+                
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+                {
+                    float dstToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+                    if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget,~(1<<6)))
+                    {
+                       return true;
+                    }
+                   
+                }
+               
             }
         }
+        // if(Physics.BoxCast(transform.position,transform.lossyScale*3,transform.forward,out hit,transform.rotation,stateMachine.monster.data.PlayerChasingRange))
+        // {
+        //     // if((1<<hit.transform.gameObject.layer)==1<<6)
+        //     // {
+        //     //     return true;
+        //     // }
+        //     Debug.Log(hit.transform.gameObject.name);
+        //      if(hit.transform.gameObject.CompareTag("Player"))
+        //     {
+        //         return true;
+        //     }
+        // }
+        
+
         
         return false;
     }
     protected bool IsInAttackRange()
     {
-        float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+        //Debug.Log(Vector3.Distance(stateMachine.target.transform.position,stateMachine.monster.transform.position));
+        if(Vector3.Distance(stateMachine.target.transform.position,stateMachine.monster.transform.position)<=stateMachine.monster.data.AttackRange)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
 
-        return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
+        }
+        // float playerDistanceSqr = (stateMachine.target.transform.position - stateMachine.monster.transform.position).sqrMagnitude;
+        // Debug.Log("**"+stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange);
+        // Debug.Log("playerDistanceSqr"+playerDistanceSqr);
+       // return playerDistanceSqr <= stateMachine.monster.data.AttackRange*stateMachine.monster.data.AttackRange;
+
+
     }
 }
