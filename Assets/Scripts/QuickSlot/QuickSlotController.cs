@@ -59,6 +59,6 @@ public class QuickSlotController : MonoBehaviour
                 slotAnimation.AnimationItemSlot();
             }
         }
-        CharacterManager.Instance.Player.controller.selectSlot = slotCount;
+        Player.Instance.controller.selectSlot = slotCount;
     }
 }
