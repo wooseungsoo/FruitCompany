@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 6081858648898566744}
   - component: {fileID: 232118995694269807}
   - component: {fileID: 1358771989021133795}
+  - component: {fileID: -3936616876349911276}
   m_Layer: 7
   m_Name: lemon
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,3 +148,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 10
   m_CollisionDetection: 0
+--- !u!114 &-3936616876349911276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638444836145330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50842bde5a677854abebb18af37d8382, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreValue: 30

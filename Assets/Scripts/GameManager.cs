@@ -57,7 +57,7 @@ public class GameManager: MonoBehaviour
         SceneManager.LoadScene("SampleScene Seungsoo");
         Player.Instance.RestartSeungsoo();
         targetScore = Random.Range(50, 101); // 50에서 100 사이의 랜덤 점수
-        timeLimit = targetScore * 0.5f; // 점수에 비례한 시간 제한 
+        timeLimit = targetScore * 10.5f; // 점수에 비례한 시간 제한 
         currentScore = 0;
         currentTime = timeLimit;
         
