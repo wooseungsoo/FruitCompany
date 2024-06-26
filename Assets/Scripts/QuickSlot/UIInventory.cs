@@ -99,6 +99,7 @@ public class UIInventory : MonoBehaviour
     public void ThrowItem(ItemData data)
     {
         Instantiate(data.dropPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
+        
     }
 
     public void UpdateUI()
@@ -153,8 +154,8 @@ public class UIInventory : MonoBehaviour
 
     public void OnDrop()
     {
-        ThrowItem(selectedItem.item);
-        selectedItem.Clear();
+        ThrowItem(slots[controller.selectSlot].item);
+        slots[controller.selectSlot].Clear();
         ClearSelectedItemWindow();
         UpdateUI();
     }
